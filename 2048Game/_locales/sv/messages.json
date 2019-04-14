@@ -1,0 +1,8 @@
+{
+   "description": {
+      "message": "Spela spelet 2048 direkt i din webbläsare. Stäng spelet och fortsätt spelet från sista poängen."
+   },
+   "name": {
+      "message": "2048"
+   }
+}

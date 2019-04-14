@@ -1,0 +1,8 @@
+{
+   "description": {
+      "message": "Speel de game 2048 rechtstreeks in uw browser. Sluit het spel en hervat het spel van de laatste score."
+   },
+   "name": {
+      "message": "2048 browser Game"
+   }
+}

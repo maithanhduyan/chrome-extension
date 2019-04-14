@@ -1,0 +1,8 @@
+{
+   "description": {
+      "message": "Zagraj w grę 2048 bezpośrednio w przeglądarce. Zamknij grę i wznów grę od ostatniego wyniku."
+   },
+   "name": {
+      "message": "2048"
+   }
+}

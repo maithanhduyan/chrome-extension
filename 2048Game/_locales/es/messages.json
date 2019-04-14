@@ -1,0 +1,8 @@
+{
+   "description": {
+      "message": "Juega al icónico juego 2048 directamente en tu navegador. Cierra el juego y reanuda el juego desde la última puntuación."
+   },
+   "name": {
+      "message": "2048 online Game"
+   }
+}

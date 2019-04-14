@@ -1,0 +1,8 @@
+{
+   "description": {
+      "message": "Play iconic 2048 game right in your browser. Close the game and RESUME playing from the latest score"
+   },
+   "name": {
+      "message": "2048 Game"
+   }
+}

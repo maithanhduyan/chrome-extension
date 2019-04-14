@@ -1,0 +1,18 @@
+{
+   "browser_action": {
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+   },
+   "description": "Colorful Rubik's Cube in Chrome from tCubed!",
+   "icons": {
+      "128": "icon128.png",
+      "16": "icon16.png",
+      "48": "icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArFqyUZuI/CpINC+dFgxkOGQzp73MGI0wjKqXNt2BeLgdSzz00Qm+aQo1bdT6rdWB2z9h4fUYTqvns6wNTPsKxaz9MYsEHNPm3LCpNAqHCYo1ZD1C4t+nfhlPrLM5KpXFogkcETuEtsCnYCahKiJVl3SUJcRFY0Y+liQaKFmBBuD4EsAvqN6QsZUPXIIHgjt9kiCtzGpdh7yr1O5Dt3oTrr7EXQnICkp8EWLhcj5RXj16JeP77ayNGykXZk2/aJdI0ffnd2ywrCDHtt2wNv5jKeBQUxprXrOoiTf4EMtkou9g8L5Rglr5d6sYiHmzal519mhZUOEMB+IaIoL2Wg3hNwIDAQAB",
+   "manifest_version": 2,
+   "name": "Colorful Rubik's Cube",
+   "permissions": [ "activeTab", "storage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.2"
+}

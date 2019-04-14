@@ -19,11 +19,9 @@
       "48": "icons/48.png",
       "64": "icons/64.png"
    },
-   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApiZXdSjMcsjEByz4p1QEiydizroO9VKPLdWrEKaZ6XqHDEz2d+0D+9UPcyLKsas+nxLP0QOCUPVj/mCKvfXZ59TNHZsZ3SlZJQ5hhHdjbsHY7PXMkV0ZG7vZKD0KewZ/ul+HOfHt7HgG9u5tYS/AQMA97N3CxMK1N90vMGQZkG3XGfPISN3FbQnTEbB5T5jcMiBLJ6FUN2qFnT/Hf8i+O8GRcxFTwe7gM4voq3unngouwKjY6pDVUdB5zsNjGZq2aQMVxGvs2T+HAGbGDBNd4wgugVx+T+Y7yoM2P9cx5CYGN2L/5sMO+Yopu3qPz9ugzZqJbQDv2Hcy/ZQs/sGF/wIDAQAB",
    "manifest_version": 2,
    "name": "Auto-Translate",
    "options_page": "options.html",
    "permissions": [ "activeTab", "tabs", "contextMenus" ],
-   "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "1.0"
 }

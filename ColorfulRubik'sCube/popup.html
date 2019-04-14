@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Beautiful Rubik's Cube</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  
+     
+	 <meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/cube.css">
+    <link rel="stylesheet" type="text/css" href="css/doodle2.css">
+    <link rel="stylesheet" type="text/css" href="css/certificate2.css">
+    <!-- Script font -->
+    <link href="https://fonts.googleapis.com/css?family=Rubik+One&subset=all" rel="stylesheet" type="text/css">
+    <!-- compiled & minified cube code -->
+    <script charset="utf-8" src="js/tween.r12.js"></script>
+    <script charset="utf-8" src="js/Three.r66.noStrict.js"></script>
+    <script charset="utf-8" src="js/cuber.js"></script>
+	<!-- <script charset="utf-8" src="js/cuber.min.js"></script>-->
+	
+</head>
+
+<body>
+  <div class="modal-header">
+    <h1 class="logo">
+		<img class="logo-icon" src="images/logo.png">
+		<span class="blue">R</span><span class="orange">u</span><span class="pink">b</span><span class="blue">i</span><span class="orange">k</span><span class="pink">'</span><span class="blue">s</span>
+		<span>Cube</span>
+      <span class="version" style="display: none;">(1.0.0)</span>
+    </h1>
+  </div>
+  <div class="modal-content">
+  
+  <div class="game-column-width" id="gameColumnWidth" style="width:100%;"><div class="game-container">
+  
+	<div class="game">
+	<div id="bg"></div>
+    <div id="container"></div>
+    <div id="fail">
+      <img src="images/static-cube.png"/>
+      <div id="upgradeText" class="bubble fadeTransition">
+        <div class="upgradetext">To play, please use a supported hardware configuration and the latest version of one of these browsers:</div>
+        <br>
+        <a class="upgradetext" href="https://www.google.com/chrome/browser/" target="_blank">Chrome</a><br>
+        <a class="upgradetext" href="https://www.mozilla.org/firefox" target="_blank">Firefox</a><br>
+        <a class="upgradetext" href="https://www.apple.com/safari" target="_blank">Safari</a><br>
+        <span class="pointerleft SPRITE_carrot_down_2x"></span>
+      </div>
+    </div>
+    <div id="uipanel" class="fadeTransition" style="display:none">
+      <div id="movecounter">0</div>
+      <div id="buttonpanel">
+        <div id="sharebubble" class="fadeTransition" style="opacity:0">
+          <input id="shareshortlink" type="text" value="google.com/doodles" readonly="readonly"/>
+          <div id="sharegplus" class="bubbleicon SPRITE_google_plus_64_2x"></div>
+          <div id="sharefacebook" class="bubbleicon SPRITE_facebook_64_2x"></div>
+          <div id="sharetwitter" class="bubbleicon SPRITE_twitter_64_2x"></div>
+          <div id="shareemail" class="bubbleicon SPRITE_email_64_2x"></div>
+        </div>
+        <div id="uibuttons">
+          <div id="sharebutton" class="bubbleicon SPRITE_share_64_2x"></div>
+          <div id="helpbutton" class="bubbleicon SPRITE_help_64_2x"></div>
+          <div id="searchbutton" class="bubbleicon SPRITE_search_64_2x"></div>
+        </div>
+      </div>
+      <div id="helpbubble" class="bubble" style="display:none">
+        <span class="pointerup SPRITE_carrot_grey_up_2x"></span>
+        <div id="helpimage" class="one"></div>
+        <div id="helptext" class="helptext"></div>
+        <div id="helpnext" class="helptext"></div>
+        <span class="pointerdown SPRITE_carrot_down_2x"></span><br>
+      </div>
+    </div>
+	
+	</div>
+	
+
+		<div class="scores p1">
+			
+			<div class="swap">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="width:25px; height:25px;">
+						<path fill="#CDCDCD" d="M57.38,19.877c0.977-2.351,2.747-3.126,5.201-3.109c10.872,0.074,21.745,0.015,32.618,0.042
+						c3.729,0.009,5.062,1.336,5.012,5.036c-0.166,12.268-0.136,24.541-0.138,36.804c-0.002,12.257-0.027,24.525,0.139,36.787
+						c0.054,3.956-0.784,4.774-4.64,4.775c-24.216,0.004-48.432,0.004-72.648-0.001c-3.531-0.001-4.555-1.014-4.563-4.675
+						c-0.026-11.173-0.025-22.346-0.001-33.52c0.008-3.789,1.479-5.225,5.239-5.275c0.791-0.011,1.582,0.005,2.372-0.002
+						c1.58-0.014,3.37,0.431,4.686-0.179c1.477-0.685,0.17-2.626,0.591-4.052c1.126-3.818,3.757-5.465,7.291-6.159
+						c7.21,0.254,8.894,1.786,9.98,9.207c0.102,0.698,0.211,1.152,0.964,1.155c2.267,0.009,4.535,0.06,6.8-0.01
+						c1.365-0.042,1.051-1.204,1.059-2.047c0.026-2.71,0.085-5.424-0.016-8.13c-0.071-1.908,0.189-2.858,2.381-1.898
+						c2.241,0.981,4.469,0.788,6.24-1.167c1.885-2.082,2.165-5.927,0.674-8.469c-1.603-2.733-4.142-3.085-6.712-2.166
+						c-2.403,0.859-2.641-0.071-2.583-2.105C57.428,27.105,57.37,23.49,57.38,19.877z M96.162,78.96c0.048,0,0.097,0,0.145,0
+						c0-5.028,0.017-10.055-0.011-15.083c-0.008-1.39,0.531-3.487-1.937-2.939c-1.908,0.424-5.056-2.105-5.482,2.473
+						c-0.438,4.713-4.806,7.862-10.077,7.852c-5.18-0.01-9.5-3.072-9.925-7.615c-0.232-2.481-1.138-3.059-3.244-2.795
+						c-0.681,0.085-1.389,0.083-2.07,0c-1.782-0.217-2.45,0.461-2.369,2.35c0.138,3.212,0.041,6.434,0.038,9.652
+						c-0.004,3.465-0.007,3.465-3.119,1.968c-3.436-1.652-5.862-0.926-6.71,2.055c-0.614,2.158-0.499,4.305,1.246,5.837
+						c1.63,1.431,3.534,0.792,5.308,0.028c0.544-0.234,1.078-0.509,1.58-0.824c1.329-0.836,1.712-0.298,1.702,1.091
+						c-0.028,3.72,0.077,7.444-0.04,11.16c-0.057,1.827,0.493,2.44,2.332,2.426c10.17-0.077,20.34-0.074,30.51-0.001
+						c1.72,0.012,2.184-0.577,2.156-2.251C96.107,89.217,96.162,84.088,96.162,78.96z M76.454,56.658
+						c-1.107,3.326-4.212,6.109-1.069,9.189c1.881,1.844,4.598,1.88,6.587,0.256c3.763-3.074,0.228-6.108-0.686-9.445
+						c4.196,0,8.212-0.113,12.217,0.045c2.147,0.085,2.904-0.465,2.873-2.816c-0.132-10.06-0.129-20.123-0.001-30.182
+						c0.03-2.328-0.712-2.853-2.858-2.827c-9.088,0.109-18.178,0.046-27.268,0.046c-5.461,0-5.415-0.003-5.057,5.638
+						c0.08,1.265,0.446,1.636,1.686,1.829c5.475,0.848,8.681,4.738,8.724,10.347c0.043,5.559-3.08,9.321-8.714,10.309
+						c-1.198,0.21-1.784,0.569-1.676,1.873c0.082,0.999,0.112,2.022-0.004,3.015c-0.24,2.056,0.445,2.854,2.594,2.771
+						C67.928,56.545,72.065,56.658,76.454,56.658z M41.99,60.866c0.888-1.791,1.613-2.997,2.104-4.295
+						c1.306-3.452-0.195-5.81-3.756-6.046c-4.333-0.287-6.283,2.439-4.626,6.496c0.264,0.646,0.601,1.272,0.984,1.853
+						c0.984,1.491,0.695,2.059-1.13,2.016c-3.654-0.084-7.313,0.043-10.967-0.054c-1.632-0.043-2.239,0.432-2.227,2.19
+						c0.069,10.465,0.057,20.931,0.009,31.396c-0.007,1.535,0.432,2.119,2.01,2.113c10.276-0.039,20.553-0.016,30.83,0.04
+						c1.386,0.008,2-0.442,1.922-1.897c-0.065-1.203-0.043-2.419,0.047-3.62c0.095-1.256-0.4-1.645-1.615-1.927
+						c-5.591-1.296-8.71-5.246-8.578-10.594c0.132-5.388,3.146-9.044,8.653-10.189c1.286-0.267,1.645-0.768,1.584-1.952
+						c-0.052-1.003-0.108-2.024,0.012-3.016c0.241-1.999-0.565-2.61-2.489-2.553C50.64,60.952,46.518,60.866,41.99,60.866z"/>
+					<path fill="#CDCDCD" d="M38.55,45.219c-0.054-0.903-0.056-1.813-0.17-2.708c-0.318-2.477-1.359-4.417-3.936-5.077
+						c-2.658-0.681-6.13,0.631-7.625,2.907c-1.463,2.228-1.115,4.445,0.411,6.426c1.467,1.905,1.388,2.925-1.114,3.641
+						c-2.748,0.786-5.377,1.995-8.086,2.935c-3.056,1.061-5.018,0.181-6.116-2.862C8.072,39.833,4.269,29.169,0.506,18.49
+						c-1.172-3.326-0.342-5.214,2.859-6.415C13.829,8.148,24.313,4.272,34.809,0.432c2.905-1.063,4.667-0.174,5.889,2.747
+						c0.347,0.83,0.593,1.703,0.9,2.551c0.579,1.602,0.793,3.561,1.852,4.707c1.261,1.365,2.714-0.715,4.233-0.784
+						c2.798-0.126,5.019,0.841,6.785,2.987c1.723,2.093,2.359,4.595,2.55,7.253c-0.804,3.621-2.318,6.592-6.343,7.349
+						c-1.38,0.26-0.974,1.21-0.661,2.08c0.812,2.255,1.646,4.502,2.433,6.766c0.725,2.088,0.183,4.066-1.705,4.898
+						C46.806,42.723,42.899,44.67,38.55,45.219z M43.628,23.184c1.726,0.105,3.073,0.25,4.419,0.253
+						c2.085,0.005,4.097-0.429,4.649-2.833c0.558-2.432-0.174-4.642-2.206-6.139c-1.993-1.468-3.75-0.426-5.35,0.914
+						c-0.684,0.572-1.317,1.219-1.91,1.89c-0.928,1.05-1.43,1.084-1.926-0.427c-1.155-3.519-2.562-6.952-3.679-10.482
+						c-0.567-1.79-1.137-2.358-3.092-1.602c-9.403,3.634-18.854,7.142-28.333,10.565c-1.823,0.658-2.212,1.294-1.507,3.203
+						c3.295,8.918,6.359,17.925,9.642,26.848c1.959,5.325,0.668,4.506,6.021,2.802c1.573-0.501,2.351-0.965,1.799-3.119
+						c-1.211-4.723,1.84-9.385,6.808-11.196c4.952-1.805,9.904-0.323,12.039,4.024c0.988,2.011,1.974,2.078,3.619,1.28
+						c0.62-0.301,1.278-0.573,1.948-0.704c2.003-0.392,2.119-1.398,1.414-3.182C46.448,31.398,45.138,27.425,43.628,23.184z"/>
+				</svg>
+			</div>
+			
+			<div class="center-text-container">
+				
+				
+				<div class="center-text top">
+					<div class="center-text-inside">
+						<p>Moves</p>
+					</div>
+				</div>
+				<div class="center-text top">
+					<div class="center-text-inside">
+						<p>Solved</p>
+					</div>
+				</div>
+				
+				
+				<div class="center-text bottom player1 ">
+					<div class="center-text-inside">
+						<p class="score movescounter">0</p>
+					</div>
+				</div>
+				<div class="center-text bottom ties">
+					<div class="center-text-inside">
+						<p class="score solvecounter">0</p>
+					</div>
+				</div>
+				
+				
+			</div>
+
+			<div class="mute">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="width:25px; height:25px;">
+					<g fill="#cdcdcd">
+						<polygon points="14.025,38.004 14.025,61.993 31.548,61.993 55.537,85.982 55.537,14.018 31.552,38.004"></polygon>
+						<path d="M67.41,34.095l-4.243,4.239c6.43,6.432,6.43,16.896,0,23.324L67.41,65.9C76.179,57.129,76.179,42.864,67.41,34.095z"></path>
+						<path d="M75.89,25.616l-4.241,4.239c11.105,11.105,11.105,29.176,0,40.284l4.241,4.241C89.337,60.934,89.337,39.06,75.89,25.616z"></path>
+					</g>
+				</svg>	
+			</div>
+			
+			
+		</div>				
+	</div></div>
+
+  </div>
+  <div class="tcubed"><a href="http://playtcubed.com/games/tic-tac-toe" target="_blank"><img class="tcubed-logo" src="images/tcubed-logo.png"></a></div>
+  <div class="modal-icons">
+    <div class="flex-container">
+      <div class="flex">
+        <a href="http://www.playtcubed.com/games/tic-tac-toe" target="_blank">
+          <i class="fa fa-globe"></i>
+        </a>
+      </div>
+	  <div class="flex">
+        <a href="https://www.facebook.com/playtcubed" target="_blank">
+          <i class="fa fa-facebook"></i>
+        </a>
+      </div>
+	  <div class="flex">
+        <a href="https://twitter.com/PlaytCubed" target="_blank">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </div>
+	  <div class="flex">
+        <a href="https://plus.google.com/u/0/106545163997618735476" target="_blank">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </div>
+      <div class="flex">
+        <a href="https://www.youtube.com/channel/UCI5SX_Mf2n95ajltf1kquyQ" target="_blank">
+          <i class="fa fa-youtube"></i>
+        </a>
+      </div>
+      <div class="flex">
+        <a href="https://www.linkedin.com/in/christopher-sprague-25321945/" target="_blank">
+          <i class="fa fa-linkedin"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popup.js"></script>
+  
+  <script charset="utf-8" src="js/iecss3d.js"></script>
+    <script charset="utf-8" src="js/ierenderer.js"></script>
+    <script charset="utf-8" src="js/deviceMotion.js"></script>
+    <script charset="utf-8" src="js/locked.js"></script>
+    <!-- Certificate js -->
+    <script charset="utf-8" src="js/textBox.js"></script>
+    <script charset="utf-8" src="js/ResizeableTextBox.3.js"></script>
+    <script charset="utf-8" src="js/divBox.js"></script>
+    <script charset="utf-8" src="js/frames.js"></script>
+    <script charset="utf-8" src="js/certificate.js"></script>
+    <script charset="utf-8" src="js/main3.js"></script>
+</body>
+
+</html>

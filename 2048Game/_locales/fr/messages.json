@@ -1,0 +1,8 @@
+{
+   "description": {
+      "message": "Jouez au jeu iconique 2048 directement dans votre navigateur. Fermez le jeu et reprenez le jeu à partir du dernier score"
+   },
+   "name": {
+      "message": "2048 Retro Game"
+   }
+}
