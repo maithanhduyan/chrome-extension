@@ -1,7 +1,3 @@
-$(document).ready(function(){
-    console.log("jquery working");
-});
-
 function getOS() {
     var OSName = "unknown OS";
     if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
@@ -135,7 +131,7 @@ var defaults = {
     meta: (getOS() != "MacOS") ? false : true,
     shift: false,
     selection: true,
-    mouseover: false,
+    mouseover: true,
     theme: 'black'
 };
 localStorage['defaults'] = JSON.stringify(defaults);
@@ -176,7 +172,6 @@ function pushHold(hold, o) {
     holdsMap[hold] = o;
 }
 function load() {
-    console.log("Loading...");
     holds = [], holdsMap = {};
     options = JSON.parse(localStorage['options']);
     hotkeys = [];
@@ -189,11 +184,9 @@ function load() {
         o.mouseover && pushHold(h.join('+') + '+Mouseover', o);
     });
 }
-
 load();
 
-chrome.runtime.onMessage.addListener(function (m, sender, sendResponse) {
-    console.log('listener.');
+chrome.runtime.onMessage.addListener( function(m, sender, sendResponse) {
     switch (m.message) {
         case 'translate':
             var options;
@@ -211,37 +204,32 @@ chrome.runtime.onMessage.addListener(function (m, sender, sendResponse) {
 
 var latest = 'auto';
 function _translate(text, from, to, options, callback) {
-    console.log("translate me");
     var options = {
         url: "https://translate.googleapis.com/translate_a/single?dt=t&dt=bd",
         data: {
-            dt: 't',
-            dt: 'bd',
-            client: 'gtx',
-            q: text,
-            sl: from,
-            tl: to,
-            dj: 1,
-            source: 'bubble'
+            dt:'t',
+            dt:'bd',
+            client:'gtx',
+            q:text,
+            sl:from,
+            tl:to,
+            dj:1,
+            source:'bubble'
         },
         dataType: 'json',
         success: function on_success(data) {
             callback(data);
         },
-        error: function (xhr, status, e) {
-            console.log({ e: e, xhr: xhr });
-        },
-        complete: function (xhr, status, e) {
-
+        error: function(xhr, status, e) {
+            console.log({e: e, xhr: xhr});
         }
     };
     $.ajax(options);
 }
 
-function getSelectedTab(callback) {
-    console.log('chrome.tabs.query');
-    chrome.tabs.query({ active: true }, function (activeTabs) {
-        if (activeTabs[0]) {
+function getSelectedTab(callback){
+    chrome.tabs.query({active: true}, function(activeTabs) {
+        if(activeTabs[0]){
             callback(activeTabs[0])
         }
     });
@@ -256,7 +244,7 @@ function translate(text, options, context) {
         _translate(text, from, to, options, function (data) {
             var text = '';
             var additional = '';
-            for (var i = 0; i < data.sentences.length; i++) {
+            for(var i = 0; i < data.sentences.length; i++){
                 text += data.sentences[i].trans + '<br/>';
             }
             context.translation = text;
@@ -265,7 +253,7 @@ function translate(text, options, context) {
                 from: latest,
                 to: to
             };
-            getSelectedTab(function (tab) {
+            getSelectedTab(function(tab){
                 chrome.tabs.sendMessage(
                     tab.id,
                     {
@@ -280,35 +268,19 @@ function translate(text, options, context) {
     translate(text, ((options.from == 'latest') ? latest : options.from));
 }
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log('addListener hold');
-    if (request == 'holds') {
-        sendResponse(holds);
+chrome.runtime.onMessage.addListener( function( request, sender, sendResponse ) {
+    if(request == 'holds'){
+        sendResponse( holds );
     }
-});
+} );
 
-
-// var _gaq = _gaq || [];
-// _gaq.push(['_setAccount', 'UA-77088330-12']);
-// _gaq.push(['_trackPageview']);
-
-// (function () {
-//     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-//     ga.src = 'https://ssl.google-analytics.com/ga.js';
-//     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-// })();
-
-//var _AnalyticsCode = 'UA-138253683-1'; ANMTD
-var _AnalyticsCode = 'UA-138253683-1';
 
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', _AnalyticsCode]);
+_gaq.push(['_setAccount', 'UA-138253683-1']);
 _gaq.push(['_trackPageview']);
-(function () {
-    var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = 'https://ssl.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();

@@ -1,58 +1,29 @@
 {
-    "manifest_version": 2,
-    "name": "Auto Translate",
-    "version": "1.0",
-    "description": "Translate text selected from Google.",
-    "icons": {
-        "128": "icon_24.png"
-    },
-    "browser_action": {
-        "default_icon": "icon_24.png"
-    },
-    "background": {
-        "scripts": [
-            "jquery.min.js",
-            "background.js"
-        ],
-        "persistent": false
-    },
-    "permissions": [
-        "<all_urls>",
-        "https://ssl.google-analytics.com/ga.js",
-        "https://*.google.com/",
-        "https://translate.googleapis.com/*",
-        "activeTab",
-        "storage",
-        "debugger",
-        "ttsEngine",
-        "geolocation",
-        "contextMenus",
-        "management"
-    ],
-    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-    "optional_permissions": [
-        "tabs"
-    ],
-    "options_page": "options.html",
-    "tts_engine": {
-        "voices": [
-            {
-                "voice_name": "Alice",
-                "lang": "en-US",
-                "event_types": [
-                    "start",
-                    "marker",
-                    "end"
-                ]
-            },
-            {
-                "voice_name": "Pat",
-                "lang": "en-US",
-                "event_types": [
-                    "end"
-                ]
-            }
-        ]
-    },
-    "update_url": "http://autotranslate.com"
+   "background": {
+      "page": "background.html"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "css": [ "content.css" ],
+      "js": [ "jquery.min.js", "content.js" ],
+      "matches": [ "*://*/*" ],
+      "run_at": "document_start"
+   } ],
+   "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
+   "description": "Automatically translate selection/mouseover text by google translate",
+   "icons": {
+      "128": "icons/128.png",
+      "16": "icons/16.png",
+      "256": "icons/translation.png",
+      "32": "icons/32.png",
+      "48": "icons/48.png",
+      "64": "icons/64.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApiZXdSjMcsjEByz4p1QEiydizroO9VKPLdWrEKaZ6XqHDEz2d+0D+9UPcyLKsas+nxLP0QOCUPVj/mCKvfXZ59TNHZsZ3SlZJQ5hhHdjbsHY7PXMkV0ZG7vZKD0KewZ/ul+HOfHt7HgG9u5tYS/AQMA97N3CxMK1N90vMGQZkG3XGfPISN3FbQnTEbB5T5jcMiBLJ6FUN2qFnT/Hf8i+O8GRcxFTwe7gM4voq3unngouwKjY6pDVUdB5zsNjGZq2aQMVxGvs2T+HAGbGDBNd4wgugVx+T+Y7yoM2P9cx5CYGN2L/5sMO+Yopu3qPz9ugzZqJbQDv2Hcy/ZQs/sGF/wIDAQAB",
+   "manifest_version": 2,
+   "name": "Auto-Translate",
+   "options_page": "options.html",
+   "permissions": [ "activeTab", "tabs", "contextMenus" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0"
 }

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready( function(){
     var selects = ['from', 'first', 'second', 'theme'];
     var checkboxes = ['ctrl', 'alt', 'shift', 'meta', 'selection', 'mouseover'];
     var languages = JSON.parse(localStorage['languages']);
@@ -69,9 +69,7 @@ $(document).ready(function () {
         message('Options saved');
         options = ops;
         localStorage['options'] = JSON.stringify(options);
-        chrome.runtime.sendMessage({ message: 'options' });
-
-        console.log("Save.");
+        chrome.runtime.sendMessage( {message: 'options'} );
     }
 
     function message(message, type) {
@@ -100,5 +98,4 @@ $(document).ready(function () {
             jQuery(".Cmd_block").css("display", "none");
         }
     });
-
 });
