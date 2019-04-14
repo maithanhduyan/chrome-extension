@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Options :: Auto-translate plugin for Google Chrome</title>
+    <link rel="stylesheet" href="options.style.css"  >
+    <script src="jquery.min.js"></script>
+    <script src="options.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Play:regular,bold&subset=cyrillic,latin&v1' rel='stylesheet'
+          type='text/css'>
+</head>
+<body>
+<div id="message">some message</div>
+<div class="options">
+    <div class="panel">
+        <span class="info add">click here to add new options set</span>
+
+        <div class="headers">
+            <div class="inline" style="width: 335px">Languages</div>
+            <div class="inline" style="width: 275px">Hotkeys</div>
+            <div class="inline">Additional</div>
+        </div>
+        <div class="set" style="display: none;">
+            <label class="inline">
+                From
+                <span class="info">translate text from selected language</span>
+                <select>
+                </select>
+            </label>
+            <label class="inline">
+                First
+                <span class="info">translate text to selected language</span>
+                <select>
+                </select>
+            </label>
+            <label class="inline" style="margin-right: 20px;">
+                Second
+                <span class="info">translate text to selected language (if text language = first)</span>
+                <select>
+                </select>
+            </label>
+
+            <div class="inline">
+                <label class="block Ctrl_block"><input type="checkbox"/>Ctrl</label>
+                <label class="block"><input type="checkbox"/>Alt</label>
+            </div>
+            <div class="inline">
+                <label class="block"><input type="checkbox"/>Shift</label>
+                <label class="block Cmd_block"><input type="checkbox"/>Cmd</label>
+            </div>
+            <div class="inline" style="position: relative; top: -10px;">+</div>
+            <div class="inline">
+                <label class="block"><input type="checkbox"/>Selection<span class="info">translate selected text</span></label>
+                <label class="block"><input type="checkbox"/>Mouseover<span class="info">translate word under cursor on mouse move</span></label>
+            </div>
+            <label class="inline" style="margin-left: 45px;">
+                Theme
+                <select>
+                    <option value="black">Black</option>
+                    <option value="white">White</option>
+                </select>
+            </label>
+
+            <span class="info remove">click here to remove current options set</span>
+        </div>
+    </div>
+    <span class="save">Save</span>
+
+    <div class="faq">
+        <h1>FAQ</h1>
+
+        <div><b>Q:</b> How to translate words on dblclick?</div>
+        <div><b>A:</b> Disable all hotkeys and leave check only on 'selection'</div>
+        <div><b>Q:</b> How to translate words on mouseover?</div>
+        <div><b>A:</b> Disable all hotkeys and leave check only on 'mouseover'</div>
+    </div>
+</div>
+
+</body>
+</html>

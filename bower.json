@@ -1,0 +1,26 @@
+{
+  "name": "bower.json",
+  "homepage": "https://github.com/maithanhduyan/auto-translate",
+  "description": "javascript repository",
+  "main": "bower.json",
+  "keywords": [
+    "bower"
+  ],
+  "authors": [
+    "anmtd <tiachop0102@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.6",
+    "jquery": "^3.4.0",
+    "font-awesome": "^5.8.1"
+  }
+}

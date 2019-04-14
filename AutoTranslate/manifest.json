@@ -1,0 +1,58 @@
+{
+    "manifest_version": 2,
+    "name": "Auto Translate",
+    "version": "1.0",
+    "description": "Translate text selected from Google.",
+    "icons": {
+        "128": "icon_24.png"
+    },
+    "browser_action": {
+        "default_icon": "icon_24.png"
+    },
+    "background": {
+        "scripts": [
+            "jquery.min.js",
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "permissions": [
+        "<all_urls>",
+        "https://ssl.google-analytics.com/ga.js",
+        "https://*.google.com/",
+        "https://translate.googleapis.com/*",
+        "activeTab",
+        "storage",
+        "debugger",
+        "ttsEngine",
+        "geolocation",
+        "contextMenus",
+        "management"
+    ],
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+    "optional_permissions": [
+        "tabs"
+    ],
+    "options_page": "options.html",
+    "tts_engine": {
+        "voices": [
+            {
+                "voice_name": "Alice",
+                "lang": "en-US",
+                "event_types": [
+                    "start",
+                    "marker",
+                    "end"
+                ]
+            },
+            {
+                "voice_name": "Pat",
+                "lang": "en-US",
+                "event_types": [
+                    "end"
+                ]
+            }
+        ]
+    },
+    "update_url": "http://autotranslate.com"
+}
