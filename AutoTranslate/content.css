@@ -13,7 +13,8 @@ div.auto-translate-lang {
 
 
 div.auto-translate-black {
-    max-width: 300px !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 350px !important;
     color: #EEE !important;
     border-color: #111 !important;
     border-width: 0px !important;

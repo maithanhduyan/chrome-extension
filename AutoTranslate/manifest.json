@@ -1,4 +1,9 @@
 {
+   "name": "Auto-Translate",
+   "description": "Automatically translate selection/mouseover text by google translate",
+   "version": "1.0",
+   "manifest_version": 2,
+   "author":"Mai Thành Duy An",
    "background": {
       "page": "background.html"
    },
@@ -10,7 +15,6 @@
       "run_at": "document_start"
    } ],
    "content_security_policy": "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com; object-src 'self'",
-   "description": "Automatically translate selection/mouseover text by google translate",
    "icons": {
       "128": "icons/128.png",
       "16": "icons/16.png",
@@ -19,9 +23,6 @@
       "48": "icons/48.png",
       "64": "icons/64.png"
    },
-   "manifest_version": 2,
-   "name": "Auto-Translate",
    "options_page": "options.html",
-   "permissions": [ "activeTab", "tabs", "contextMenus" ],
-   "version": "1.0"
+   "permissions": [ "activeTab", "tabs", "contextMenus" ]
 }
