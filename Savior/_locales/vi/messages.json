@@ -1,0 +1,380 @@
+{
+   "downloading_word": {
+      "description": "Just a single word",
+      "message": "Đang tải về"
+   },
+   "first_messenger_text": {
+      "description": "facebook first time description",
+      "message": "\u003Cb>Hơn cả một tính năng...đó là nhiều tính năng\u003C/b>\u003Cbr> Chat \u003Cb>Facebook\u003C/b>, Zalo, Skype, Telegram thuận tiện trên thanh sidebar. Tích hợp sẵn không cần cài đặt phần mềm hỗ trợ. "
+   },
+   "first_skype_text": {
+      "description": "skype first time description",
+      "message": "\u003Cb>Hơn cả một tính năng...đó là nhiều tính năng\u003C/b>\u003Cbr> Chat Facebook, Zalo, \u003Cb>Skype\u003C/b>, Telegram thuận tiện trên thanh sidebar. Tích hợp sẵn không cần cài đặt phần mềm hỗ trợ. "
+   },
+   "first_tele_text": {
+      "description": "tele first time description",
+      "message": "\u003Cb>Hơn cả một tính năng...đó là nhiều tính năng\u003C/b>\u003Cbr> Chat Facebook, Zalo, Skype, \u003Cb>Telegram\u003C/b> thuận tiện trên thanh sidebar. Tích hợp sẵn không cần cài đặt phần mềm hỗ trợ. "
+   },
+   "first_translate_text": {
+      "description": "translate first time description",
+      "message": "\u003Cb>Ngoại ngữ khó có Cốc Cốc lo\u003C/b>  \u003Cbr>Mở Google Dịch trên sidebar song song với bất kỳ tab nào khiến cho việc dịch và tra cứu ngoại ngữ của bạn thuận tiện, nhanh chóng, và dễ dàng hơn gấp 2 lần. "
+   },
+   "first_youtube_text": {
+      "description": "youtube first time description",
+      "message": "\u003Cb>Sidebar mượt mà - nghe nhạc thăng hoa\u003C/b>\u003Cbr> Thêm ngay Youtube trên thanh sidebar để cuộc sống của bạn luôn đắm chìm trong âm nhạc chỉ với một click chuột"
+   },
+   "first_zalo_text": {
+      "description": "zalo first time description",
+      "message": "\u003Cb>Hơn cả một tính năng...đó là nhiều tính năng\u003C/b>\u003Cbr> Chat Facebook, \u003Cb>Zalo\u003C/b>, Skype, Telegram thuận tiện trên thanh sidebar. Tích hợp sẵn không cần cài đặt phần mềm hỗ trợ. "
+   },
+   "instant_actions_download_options": {
+      "description": "Options text for instant download button",
+      "message": "Hiển thị nút tải nhanh cho YouTube"
+   },
+   "instant_actions_download_tooltip": {
+      "description": "Tooltip for download in one click button",
+      "message": "Tải video YouTube chỉ bằng một click"
+   },
+   "media_fields_type_audio": {
+      "description": "Audio media type",
+      "message": "Âm thanh"
+   },
+   "media_fields_type_stream": {
+      "description": "Stream media type",
+      "message": "Stream"
+   },
+   "media_fields_type_subtitles": {
+      "description": "Subtitles media title",
+      "message": "Phụ đề"
+   },
+   "media_fields_type_video": {
+      "description": "Video media type",
+      "message": "Phim"
+   },
+   "mobile_button": {
+      "description": "Mobile button text",
+      "message": "Mobile"
+   },
+   "mobile_error_text": {
+      "description": "Text for error in mobile transfer panel",
+      "message": "Tệp không khả dụng."
+   },
+   "mobile_instruction_1": {
+      "description": "Text 2 in mobile panel",
+      "message": "Mở Cốc Cốc Mobile"
+   },
+   "mobile_instruction_2": {
+      "description": "Text 3 in mobile panel",
+      "message": "Quét mã QR này"
+   },
+   "mobile_panel_footer": {
+      "description": "Text 4 in mobile panel",
+      "message": "Bạn chưa cài trình duyệt Cốc Cốc trên di động?"
+   },
+   "mobile_panel_header": {
+      "description": "Text 1 in mobile panel",
+      "message": "Tải video này trên thiết bị di động"
+   },
+   "options_dark_theme": {
+      "description": "Download in one click checkbox label",
+      "message": "Bật chế độ tối cho Savior"
+   },
+   "options_min_stream_size": {
+      "description": "Min stream size label",
+      "message": "Hãy bỏ qua luồng nhỏ hơn"
+   },
+   "options_one_click": {
+      "description": "Download in one click checkbox label",
+      "message": "Tải xuống sau một cú nhấp chuột"
+   },
+   "options_prefer_last_quality": {
+      "description": "Prefer last quality as initial quality selector checkbox label",
+      "message": "Ghi nhớ chất lượng tập tin được chọn của lần gần nhất"
+   },
+   "options_save_and_close": {
+      "description": "Save and close button",
+      "message": "Lưu và đóng"
+   },
+   "options_show_3gp": {
+      "description": "Show 3gp checkbox in options",
+      "message": "Hiển thị định dạng 3gp"
+   },
+   "options_show_detach_button": {
+      "description": "Show detach button",
+      "message": "Cho phép ghim video"
+   },
+   "options_show_on_page_buttons": {
+      "description": "Show on page controls label",
+      "message": "Hiện nút Tải xuống bên cạnh tập tin có thể tải về"
+   },
+   "options_title": {
+      "description": "Options page title",
+      "message": "Tùy chọn"
+   },
+   "page_action_title": {
+      "description": "Tooltip on pageAction hover",
+      "message": "Đã tìm thấy phương tiện có thể tải xuống!"
+   },
+   "pip_failed_to_find": {
+      "description": "Notice for when we failed to locate player on the page.",
+      "message": "Savior failed to detach this video"
+   },
+   "pip_please_wait": {
+      "description": "When PiP doing it's magic",
+      "message": "Please wait..."
+   },
+   "pip_tour_content": {
+      "description": "PiP tour text - ask the user to try our product",
+      "message": "Bạn có thể tải phần âm thanh của các video trực tuyến (theo định dạng \u003Cstrong>mp3\u003C/strong>)."
+   },
+   "pip_tour_title": {
+      "description": "PiP tour title",
+      "message": "Tải file mp3 chỉ bằng 1 click chuột"
+   },
+   "pip_tour_try_btn": {
+      "description": "PiP tour try now button",
+      "message": "Thử ngay!"
+   },
+   "play_now_click_to_play": {
+      "description": "Promote text in a tooltip",
+      "message": "Bấm \u003Cb>Xem ngay\u003C/b> để xem trong khi tải video!"
+   },
+   "play_now_do_not_show": {
+      "description": "Do not show tooltip again text",
+      "message": "Không hiển thị lại"
+   },
+   "play_now_per_second": {
+      "description": "A 'second' name",
+      "message": "giây"
+   },
+   "play_now_play_now": {
+      "description": "Play now button title",
+      "message": "Xem ngay"
+   },
+   "play_now_received_from": {
+      "description": "A 'from' word",
+      "message": "của"
+   },
+   "popup_check_all": {
+      "description": "Text for check all",
+      "message": "tất cả"
+   },
+   "popup_check_label": {
+      "description": "Label to check all or none",
+      "message": "Chọn:"
+   },
+   "popup_check_none": {
+      "description": "Text for check none",
+      "message": "bỏ chọn"
+   },
+   "popup_download": {
+      "description": "Download button text",
+      "message": "TẢI XUỐNG"
+   },
+   "popup_download_failed": {
+      "description": "Message is shown if download could not be started.",
+      "message": "Khởi động download không thành công. Hãy sử dụng định dạng và chất lượng khác."
+   },
+   "popup_download_selected": {
+      "description": "Download selected button text",
+      "message": "TẢI XUỐNG ĐÃ CHỌN"
+   },
+   "popup_download_starting": {
+      "description": "Wait for download button text",
+      "message": "Vui lòng chờ..."
+   },
+   "popup_how_many_media_found": {
+      "description": "Text saying how many media was found.",
+      "message": "$number$ phương tiện được tìm thấy",
+      "placeholders": {
+         "number": {
+            "content": "$1",
+            "example": 42
+         }
+      }
+   },
+   "popup_no_media_found": {
+      "description": "Message shows in popup if there is no media to display.",
+      "message": "Xin lỗi, không tìm thấy phương tiện nào."
+   },
+   "popup_one_click": {
+      "description": "Download in one click checkbox label",
+      "message": "Tải xuống sau một cú nhấp chuột"
+   },
+   "popup_pip_button": {
+      "description": "Pip button text",
+      "message": "Ghim"
+   },
+   "popup_preferred_quality": {
+      "description": "Preferred media quality select label",
+      "message": "Chất lượng phương tiện ưa thích"
+   },
+   "popup_preferred_quality_hint": {
+      "description": "Preferred media quality as a hint for automatic download.",
+      "message": "Chất lượng:"
+   },
+   "popup_sound_only": {
+      "description": "Sound only text for quality selection",
+      "message": "(chỉ âm thanh)"
+   },
+   "popup_starting_download": {
+      "description": "Starting one-click download text",
+      "message": "Bắt đầu tải xuống"
+   },
+   "popup_welcome_button": {
+      "description": "Try it now button text",
+      "message": "Thử ngay!"
+   },
+   "popup_welcome_text": {
+      "description": "Welcome popup text",
+      "message": " Nếu bạn nhìn thấy biểu tượng này trên thanh địa chỉ, có nghĩa là có nội dung truyền thông trên trang web (như âm nhạc, đoạn phim ca nhạc hoặc phim), có thể được tải về."
+   },
+   "popup_welcome_title": {
+      "description": "Welcome popup title",
+      "message": "Đã tìm thấy phương tiện có thể tải xuống!"
+   },
+   "promote_serp_btn_check_result": {
+      "description": "Button check results",
+      "message": "Tìm kiếm với Cốc Cốc"
+   },
+   "promote_serp_btn_settings": {
+      "description": "Button browser settings",
+      "message": "Mở cài đặt tìm kiếm"
+   },
+   "promote_serp_desc": {
+      "description": "SERP promotion description text",
+      "message": "Anh chị Cốc Cốc thân mến, để giúp cho việc nâng cao chất lượng tìm kiếm, anh chị vui lòng dùng công cụ trình duyệt của chúng ta và phản hồi lại cho chúng tôi."
+   },
+   "ql_high": {
+      "description": "High media quality title",
+      "message": "Cao"
+   },
+   "ql_low": {
+      "description": "Low media quality title",
+      "message": "Thấp"
+   },
+   "ql_medium": {
+      "description": "Medium media quality title",
+      "message": "Trung bình"
+   },
+   "second_messenger_text": {
+      "description": "facebook second time description",
+      "message": "\u003Cb>Một click là mở chat - Hai click là nhắn ngay\u003C/b>\u003Cbr> Ba click là mê đắm với tính năng chat tiện lợi trên thanh sidebar"
+   },
+   "second_skype_text": {
+      "description": "skype second time description",
+      "message": "\u003Cb>Một click là mở chat - Hai click là nhắn ngay\u003C/b>\u003Cbr> Ba click là mê đắm với tính năng chat tiện lợi trên thanh sidebar"
+   },
+   "second_tele_text": {
+      "description": "tele second time description",
+      "message": "\u003Cb>Một click là mở chat - Hai click là nhắn ngay\u003C/b>\u003Cbr> Ba click là mê đắm với tính năng chat tiện lợi trên thanh sidebar"
+   },
+   "second_translate_text": {
+      "description": "translate second time description",
+      "message": "\u003Cb>Một tab làm chẳng nên non\u003Cbr> Song song tab phụ dịch bài liền tay\u003C/b>\u003Cbr> Thêm ngay Google Dịch trên sidebar để có thể mở công cụ dịch song song với bất kỳ tab nào bạn nhé! "
+   },
+   "second_youtube_text": {
+      "description": "youtube second time description",
+      "message": "\u003Cb>1, 2, 3, 5 - Bạn đánh rơi YouTube trên sidebar mất rồi.\u003C/b>\u003Cbr> Truy cập nhanh trong một nốt nhạc bằng cách thêm YouTube vào thanh công cụ"
+   },
+   "second_zalo_text": {
+      "description": "zalo second time description",
+      "message": "\u003Cb>Một click là mở chat - Hai click là nhắn ngay\u003C/b>\u003Cbr> Ba click là mê đắm với tính năng chat tiện lợi trên thanh sidebar"
+   },
+   "sidebar_onboard_title": {
+      "description": "Onboarding title",
+      "message": "Đề xuất từ Cốc Cốc"
+   },
+   "skipping_ads_notice": {
+      "description": "Notice for skipping ads tooltip",
+      "message": "Đây không phải là trình chặn quảng cáo, tính năng này chỉ tự động nhấn \"Skip Ad\" giúp bạn"
+   },
+   "skipping_ads_off": {
+      "description": "Button turn skipping ads off",
+      "message": "Tắt tự động bỏ qua quảng cáo"
+   },
+   "skipping_ads_on": {
+      "description": "Button turn skipping ads on",
+      "message": "Bật tự động bỏ qua quảng cáo"
+   },
+   "skipping_ads_text_content": {
+      "description": "Content for skipping ads tooltip",
+      "message": "Cốc Cốc có thể tự động bỏ qua quảng cáo giúp bạn. bạn muốn bật ngay bây giờ?"
+   },
+   "skipping_ads_title": {
+      "description": "Title for skipping ads tooltip",
+      "message": "Tự động bỏ qua quảng cáo"
+   },
+   "skipping_ads_tooltip_btn_cancel": {
+      "description": "Cancel skipping ads tooltip",
+      "message": "Bỏ qua"
+   },
+   "skipping_ads_tooltip_btn_ok": {
+      "description": "Enable skipping ads tooltip",
+      "message": "Đồng ý"
+   },
+   "subtitles_auto_translated": {
+      "description": "Auto translated subtitles",
+      "message": "(dịch tự động)"
+   },
+   "subtitles_lang_en": {
+      "description": "English",
+      "message": "Tiếng Anh"
+   },
+   "subtitles_lang_fr": {
+      "description": "French",
+      "message": "Tiếng Pháp"
+   },
+   "subtitles_lang_ja": {
+      "description": "Japanese",
+      "message": "Tiếng Nhật"
+   },
+   "subtitles_lang_ko": {
+      "description": "Korean",
+      "message": "Tiếng Hàn"
+   },
+   "subtitles_lang_ru": {
+      "description": "Russian",
+      "message": "Tiếng Nga"
+   },
+   "subtitles_lang_vi": {
+      "description": "Vietnamese",
+      "message": "Tiếng Việt"
+   },
+   "third_messenger_text": {
+      "description": "facebook third time description",
+      "message": "\u003Cb>Bỏ lỡ bình minh có thể ngắm vào ngày mai\u003Cbr> Bỏ lỡ tin nhắn crush bạn không có lần hai\u003C/b>\u003Cbr> Vậy nên hãy dùng ngay tính năng chat \u003Cb>Facebook\u003C/b>, Zalo, Skype và Telegram trên sidebar đi!"
+   },
+   "third_skype_text": {
+      "description": "skype third time description",
+      "message": "\u003Cb>Bỏ lỡ bình minh có thể ngắm vào ngày mai\u003Cbr> Bỏ lỡ tin nhắn crush bạn không có lần hai\u003C/b>\u003Cbr> Vậy nên hãy dùng ngay tính năng chat Facebook, Zalo, \u003Cb>Skype\u003C/b> và Telegram trên sidebar đi!"
+   },
+   "third_tele_text": {
+      "description": "tele third time description",
+      "message": "\u003Cb>Bỏ lỡ bình minh có thể ngắm vào ngày mai\u003Cbr> Bỏ lỡ tin nhắn crush bạn không có lần hai\u003C/b>\u003Cbr> Vậy nên hãy dùng ngay tính năng chat Facebook, Zalo, Skype và \u003Cb>Telegram\u003C/b> trên sidebar đi!"
+   },
+   "third_translate_text": {
+      "description": "translate third time description",
+      "message": "\u003Cb>Trợ thủ đắc lực giúp bạn dịch văn bản nhanh chóng\u003C/b>\u003Cbr> Liền mạch và không phải chuyển qua lại giữa các tab"
+   },
+   "third_youtube_text": {
+      "description": "youtube third time description",
+      "message": "\u003Cb>Bật nhạc trên sidebar\u003C/b> \u003Cbr>Tắt ngay muộn phiền\u003Cbr> Bạn đã thử chưa? "
+   },
+   "third_zalo_text": {
+      "description": "zalo third time description",
+      "message": "\u003Cb>Bỏ lỡ bình minh có thể ngắm vào ngày mai\u003Cbr> Bỏ lỡ tin nhắn crush bạn không có lần hai\u003C/b>\u003Cbr> Vậy nên hãy dùng ngay tính năng chat Facebook, \u003Cb>Zalo\u003C/b>, Skype và Telegram trên sidebar đi!"
+   },
+   "try_now_button_text": {
+      "description": "onboarding try button text",
+      "message": "Thử ngay"
+   },
+   "turn_off_light": {
+      "description": "Button turn light off",
+      "message": "Tắt đèn"
+   },
+   "turn_on_light": {
+      "description": "Button turn light on",
+      "message": "Bật đèn"
+   }
+}

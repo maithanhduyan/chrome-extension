@@ -1,0 +1,60 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "content_scripts": [
+      {
+         "all_frames": true,
+         "exclude_matches": [],
+         "js": [
+            "common/common.js",
+            "content-script/content-script.js"
+         ],
+         "matches": [
+            "\u003Call_urls>"
+         ],
+         "run_at": "document_start"
+      }
+   ],
+   "default_locale": "en",
+   "externally_connectable": {
+      "matches": [
+         "http://localhost/*"
+      ]
+   },
+   "icons": {
+      "128": "images/logo_cc.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDN4c7XRYXzpvahEEqCGsfZPXsl5kWXuv14AkytPEG4ok42OVda9wNV/GeZqYUO4IvW/3erMWGcnb+wyt2K9nds9aC+cKDf+eUU4vPAI8i/aWdPYe0G5tBlwitHJouftu9G5i6auE91IaXVbXkW5//zVHiB1v/MFunh4EkwfV9ONwIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "48",
+   "name": "Cốc Cốc Savior",
+   "options_ui": {
+      "chrome_style": false,
+      "page": "options.html"
+   },
+   "page_action": {
+      "default_icon": "images/action_cc.png",
+      "default_popup": "popup.html",
+      "default_title": "__MSG_page_action_title__"
+   },
+   "permissions": [
+      "tabs",
+      "webRequest",
+      "webRequestBlocking",
+      "webNavigation",
+      "downloads",
+      "downloads.open",
+      "storage",
+      "http://*/*",
+      "https://*/*",
+      "cookies"
+   ],
+   "update_url": "https://google.com/",
+   "version": "1.0.2",
+   "web_accessible_resources": [
+      "css/content-script.css",
+      "images/*.*",
+      "/features.json"
+   ]
+}

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>Savior options</title>
+<link href="././css/options.css" rel="stylesheet"></head>
+<body class="body">
+<div id="options"></div>
+<script type="text/mustache-template" id="options-template">
+    <div class="form">
+        <label class="checkbox">
+            <input type="checkbox" id="on-page-buttons" {{#onPageButtonsEnabled}}checked{{/onPageButtonsEnabled}}>
+            {{i18n_show_on_page_buttons}}
+        </label>
+        <label class="checkbox {{^onPageButtonsEnabled}}disabled{{/onPageButtonsEnabled}}">
+            <input type="checkbox" id="detach-button" {{^onPageButtonsEnabled}}disabled{{/onPageButtonsEnabled}}
+            {{#detachButtonEnabled}}checked{{/detachButtonEnabled}}>
+            {{i18n_show_detach_button}}
+        </label>
+		<label class="checkbox {{^onPageButtonsEnabled}}disabled{{/onPageButtonsEnabled}}">
+			<input type="checkbox" id="instant-button-download" {{^onPageButtonsEnabled}}disabled{{/onPageButtonsEnabled}}
+			{{#instantDownload}}checked{{/instantDownload}}>
+			{{i18n_show_instant_download}}
+		</label>
+        <br>
+        <label class="checkbox">
+            <input type="checkbox" id="dark-theme-enable" {{#isDarkThemeEnabled}}checked{{/isDarkThemeEnabled}}>
+            {{i18n_dark_theme}}
+        </label>
+        <br>
+        <label class="checkbox">
+            <input type="checkbox" id="one-click-download" {{#isOneClickEnabled}}checked{{/isOneClickEnabled}}>
+            {{i18n_one_click}}
+        </label>
+        <br>
+        {{i18n_preferred_quality}}
+        {{#qLevels}}
+        <label class="radio">
+            <input type="radio" name="optionsRadios" value="{{qLevelName}}" {{#isChecked}}checked{{/isChecked}}>
+            {{i18n_ql_title}}
+        </label>
+        {{/qLevels}}
+        <br>
+        <label class="checkbox">
+            <input type="checkbox" id="show-3gp-ext" {{#show3gpExt}}checked{{/show3gpExt}}>
+            {{i18n_show_3gp}}
+        </label>
+        <br>
+        <label class="checkbox">
+            <input type="checkbox" id="prefer-last-quality" {{#preferLastQuality}}checked{{/preferLastQuality}}>
+            {{i18n_prefer_last_quality}}
+        </label>
+
+        <label id="min-stream-label">{{i18n_min_stream_szie}}</label>
+        <input type="range" id="min-stream-size" min="0" max="3048000" value="{{minStreamSize}}" style="width: 300px">
+        <span id="min-stream-size-value">{{minStreamSizeValue}}</span>
+    </div>
+</script>
+
+<script type="text/javascript" src="./common/common.js"></script><script type="text/javascript" src="./options/options.js"></script></body>
+</html>

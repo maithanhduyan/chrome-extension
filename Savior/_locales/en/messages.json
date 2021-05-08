@@ -1,0 +1,380 @@
+{
+   "downloading_word": {
+      "description": "Just a single word",
+      "message": "Downloading"
+   },
+   "first_messenger_text": {
+      "description": "facebook first time description",
+      "message": "\u003Cb>More than one feature ... is many features in one place.\u003C/b>\u003Cbr> \u003Cb>Facebook Messenger\u003C/b> , Zalo, Skype, Telegram all integrated on browser sidebar for extra convenient. No additional software needed. "
+   },
+   "first_skype_text": {
+      "description": "skype first time description",
+      "message": "\u003Cb>More than one feature ... is many features in one place.\u003C/b>\u003Cbr> Facebook Messenger, Zalo, \u003Cb>Skype\u003C/b>, Telegram all integrated on browser sidebar for extra convenient. No additional software needed. "
+   },
+   "first_tele_text": {
+      "description": "tele first time description",
+      "message": "\u003Cb>More than one feature ... is many features in one place.\u003C/b>\u003Cbr> Facebook Messenger, Zalo, Skype, \u003Cb>Telegram\u003C/b> all integrated on browser sidebar for extra convenient. No additional software needed. "
+   },
+   "first_translate_text": {
+      "description": "translate first time description",
+      "message": "\u003Cb>We got your back!\u003C/b>\u003Cbr> Open Google Translate on sidebar simultaneously with any tab to help you translate 2 times faster. "
+   },
+   "first_youtube_text": {
+      "description": "youtube first time description",
+      "message": "\u003Cb>Add YouTube on sidebar\u003C/b> to emmerge yourself in music with just one click"
+   },
+   "first_zalo_text": {
+      "description": "zalo first time description",
+      "message": "\u003Cb>More than one feature ... is many features in one place.\u003C/b>\u003Cbr> Facebook Messenger, \u003Cb>Zalo\u003C/b>, Skype, Telegram all integrated on browser sidebar for extra convenient. No additional software needed. "
+   },
+   "instant_actions_download_options": {
+      "description": "Options text for instant download button",
+      "message": "Show instant Download for YouTube"
+   },
+   "instant_actions_download_tooltip": {
+      "description": "Tooltip for download in one click button",
+      "message": "Download YouTube video in one click"
+   },
+   "media_fields_type_audio": {
+      "description": "Audio media type",
+      "message": "Audio"
+   },
+   "media_fields_type_stream": {
+      "description": "Stream media type",
+      "message": "Stream"
+   },
+   "media_fields_type_subtitles": {
+      "description": "Subtitles media title",
+      "message": "Subtitles"
+   },
+   "media_fields_type_video": {
+      "description": "Video media type",
+      "message": "Video"
+   },
+   "mobile_button": {
+      "description": "Mobile button text",
+      "message": "Mobile"
+   },
+   "mobile_error_text": {
+      "description": "Text for error in mobile transfer panel",
+      "message": "Media is not available."
+   },
+   "mobile_instruction_1": {
+      "description": "Text 2 in mobile panel",
+      "message": "Open Cốc Cốc Mobile"
+   },
+   "mobile_instruction_2": {
+      "description": "Text 3 in mobile panel",
+      "message": "Scan QR code"
+   },
+   "mobile_panel_footer": {
+      "description": "Text 4 in mobile panel",
+      "message": "Don't have Cốc Cốc Browser on mobile?"
+   },
+   "mobile_panel_header": {
+      "description": "Text 1 in mobile panel",
+      "message": "Download video on your mobile"
+   },
+   "options_dark_theme": {
+      "description": "Enable dark theme",
+      "message": "Enable dark theme for Savior"
+   },
+   "options_min_stream_size": {
+      "description": "Min stream size label",
+      "message": "Ignore streams smaller than"
+   },
+   "options_one_click": {
+      "description": "Download in one click checkbox label",
+      "message": "Download in one click"
+   },
+   "options_prefer_last_quality": {
+      "description": "Prefer last quality as initial quality selector checkbox label",
+      "message": "Remember last chosen media quality"
+   },
+   "options_save_and_close": {
+      "description": "Save and close button",
+      "message": "Save and close"
+   },
+   "options_show_3gp": {
+      "description": "Show 3gp checkbox in options",
+      "message": "Show 3gp format"
+   },
+   "options_show_detach_button": {
+      "description": "Show detach button",
+      "message": "Allow pinning videos"
+   },
+   "options_show_on_page_buttons": {
+      "description": "Show on page controls label",
+      "message": "Show download button near downloadable media"
+   },
+   "options_title": {
+      "description": "Options page title",
+      "message": "Options"
+   },
+   "page_action_title": {
+      "description": "Tooltip on pageAction hover",
+      "message": "Downloadable media found!"
+   },
+   "pip_failed_to_find": {
+      "description": "Notice to show when we failed to locate player on the page.",
+      "message": "Could not detach this video"
+   },
+   "pip_please_wait": {
+      "description": "When PiP doing it's magic",
+      "message": "Detaching..."
+   },
+   "pip_tour_content": {
+      "description": "PiP tour text - ask the user to try our product",
+      "message": "You can download audio files into an \u003Cstrong>mp3\u003C/strong> separately from the video."
+   },
+   "pip_tour_title": {
+      "description": "PiP tour title",
+      "message": "Download mp3 in just one click"
+   },
+   "pip_tour_try_btn": {
+      "description": "PiP tour try now button",
+      "message": "Got it, let's try"
+   },
+   "play_now_click_to_play": {
+      "description": "Promote text in a tooltip",
+      "message": "Click to \u003Cb>Play now\u003C/b> to watch downloading video now!"
+   },
+   "play_now_do_not_show": {
+      "description": "Do not show tooltip again text",
+      "message": "Do not show again"
+   },
+   "play_now_per_second": {
+      "description": "A 'second' name",
+      "message": "sec"
+   },
+   "play_now_play_now": {
+      "description": "Play now button title",
+      "message": "Play now"
+   },
+   "play_now_received_from": {
+      "description": "A 'from' word",
+      "message": "from"
+   },
+   "popup_check_all": {
+      "description": "Text for check all",
+      "message": "all"
+   },
+   "popup_check_label": {
+      "description": "Label to check all or none",
+      "message": "Check:"
+   },
+   "popup_check_none": {
+      "description": "Text for check none",
+      "message": "none"
+   },
+   "popup_download": {
+      "description": "Download button text",
+      "message": "DOWNLOAD"
+   },
+   "popup_download_failed": {
+      "description": "Message is shown if download could not be started.",
+      "message": "Download has failed to start. Try with different format or quality."
+   },
+   "popup_download_selected": {
+      "description": "Download selected button text",
+      "message": "DOWNLOAD SELECTED"
+   },
+   "popup_download_starting": {
+      "description": "Wait for download button text",
+      "message": "Please wait..."
+   },
+   "popup_how_many_media_found": {
+      "description": "Text saying how many media was found.",
+      "message": "$number$ media found",
+      "placeholders": {
+         "number": {
+            "content": "$1",
+            "example": 42
+         }
+      }
+   },
+   "popup_no_media_found": {
+      "description": "Message shows in popup if there is no media to display.",
+      "message": "No media was found, sorry."
+   },
+   "popup_one_click": {
+      "description": "Download in one click checkbox label",
+      "message": "Download in one click"
+   },
+   "popup_pip_button": {
+      "description": "Pip button text",
+      "message": "Pin"
+   },
+   "popup_preferred_quality": {
+      "description": "Preferred media quality select label",
+      "message": "Preferred media quality"
+   },
+   "popup_preferred_quality_hint": {
+      "description": "Preferred media quality as a hint for automatic download.",
+      "message": "Preferred quality:"
+   },
+   "popup_sound_only": {
+      "description": "Sound only text for quality selection",
+      "message": "(sound only)"
+   },
+   "popup_starting_download": {
+      "description": "Starting one-click download text",
+      "message": "Starting download"
+   },
+   "popup_welcome_button": {
+      "description": "Try it now button text",
+      "message": "Try it now!"
+   },
+   "popup_welcome_text": {
+      "description": "Welcome popup text",
+      "message": "If you see this icon in the address-bar, this means that there is media content on the page (like music, video clips or movies), which can be downloaded."
+   },
+   "popup_welcome_title": {
+      "description": "Welcome popup title",
+      "message": "Downloadable media found!"
+   },
+   "promote_serp_btn_check_result": {
+      "description": "Button check results",
+      "message": "Check results in Cốc Cốc"
+   },
+   "promote_serp_btn_settings": {
+      "description": "Button browser settings",
+      "message": "Search engine settings"
+   },
+   "promote_serp_desc": {
+      "description": "SERP promotion description text",
+      "message": "Dear CocCoc-er, please try to use our search engine for this query and report problems if any – it will be a great help in improving our search quality."
+   },
+   "ql_high": {
+      "description": "High media quality title",
+      "message": "High"
+   },
+   "ql_low": {
+      "description": "Low media quality title",
+      "message": "Low"
+   },
+   "ql_medium": {
+      "description": "Medium media quality title",
+      "message": "Medium"
+   },
+   "second_messenger_text": {
+      "description": "facebook second time description",
+      "message": "\u003Cb>One click - open message. Two click - chat instantly\u003C/b>\u003Cbr> Three click - fall in love with messenger feature on sidebar"
+   },
+   "second_skype_text": {
+      "description": "skype second time description",
+      "message": "\u003Cb>One click - open message. Two click - chat instantly\u003C/b>\u003Cbr> Three click - fall in love with messenger feature on sidebar"
+   },
+   "second_tele_text": {
+      "description": "tele second time description",
+      "message": "\u003Cb>One click - open message. Two click - chat instantly\u003C/b>\u003Cbr> Three click - fall in love with messenger feature on sidebar"
+   },
+   "second_translate_text": {
+      "description": "translate second time description",
+      "message": "\u003Cb>Add Google Translate on sidebar\u003C/b>  to open the translation tool side by side with any tab"
+   },
+   "second_youtube_text": {
+      "description": "youtube second time description",
+      "message": "\u003Cb>Never miss a beat with Youtube on sidebar\u003C/b>"
+   },
+   "second_zalo_text": {
+      "description": "zalo second time description",
+      "message": "\u003Cb>One click - open message. Two click - chat instantly\u003C/b>\u003Cbr> Three click - fall in love with messenger feature on sidebar"
+   },
+   "sidebar_onboard_title": {
+      "description": "Onboarding title",
+      "message": "Suggestion from Cốc Cốc"
+   },
+   "skipping_ads_notice": {
+      "description": "Notice for skipping ads tooltip",
+      "message": "This is not an ad blocker, it just automates the process of clicking on the \"Skip Ad\" button"
+   },
+   "skipping_ads_off": {
+      "description": "Button turn skipping ads off",
+      "message": "Disable Auto skip ads"
+   },
+   "skipping_ads_on": {
+      "description": "Button turn skipping ads on",
+      "message": "Automatically skip ads"
+   },
+   "skipping_ads_text_content": {
+      "description": "Content for skipping ads tooltip",
+      "message": "Cốc Cốc can skip video ads automatically for you. Do you want to enable it now?"
+   },
+   "skipping_ads_title": {
+      "description": "Title for skipping ads tooltip",
+      "message": "Auto skip ads"
+   },
+   "skipping_ads_tooltip_btn_cancel": {
+      "description": "Cancel skipping ads tooltip",
+      "message": "Cancel"
+   },
+   "skipping_ads_tooltip_btn_ok": {
+      "description": "Enable skipping ads tooltip",
+      "message": "Yes, enable"
+   },
+   "subtitles_auto_translated": {
+      "description": "Auto translated subtitles",
+      "message": "(auto translated)"
+   },
+   "subtitles_lang_en": {
+      "description": "English",
+      "message": "English"
+   },
+   "subtitles_lang_fr": {
+      "description": "French",
+      "message": "French"
+   },
+   "subtitles_lang_ja": {
+      "description": "Japanese",
+      "message": "Japanese"
+   },
+   "subtitles_lang_ko": {
+      "description": "Korean",
+      "message": "Korean"
+   },
+   "subtitles_lang_ru": {
+      "description": "Russian",
+      "message": "Russian"
+   },
+   "subtitles_lang_vi": {
+      "description": "Vietnamese",
+      "message": "Vietnamese"
+   },
+   "third_messenger_text": {
+      "description": "facebook third time description",
+      "message": "\u003Cb>Use Messenger on sidebar to never miss a message from your crush.\u003C/b>\u003Cbr> Coc Coc has all the messenger tool you need: \u003Cb>Facebook Messenger\u003C/b>, Zalo, Skype, and Telegram. "
+   },
+   "third_skype_text": {
+      "description": "skype third time description",
+      "message": "\u003Cb>Use Messenger on sidebar to never miss a message from your crush.\u003C/b>\u003Cbr> Coc Coc has all the messenger tool you need: Facebook Messenger, Zalo, \u003Cb>Skype\u003C/b>, and Telegram. "
+   },
+   "third_tele_text": {
+      "description": "tele third time description",
+      "message": "\u003Cb>Use Messenger on sidebar to never miss a message from your crush.\u003C/b>\u003Cbr> Coc Coc has all the messenger tool you need: Facebook Messenger, Zalo, Skype, and \u003Cb>Telegram\u003C/b>. "
+   },
+   "third_translate_text": {
+      "description": "translate third time description",
+      "message": "\u003Cb>Google Translate on sidebar\u003C/b> help you translate text quickly, seamlessly and not have to switch between tabs"
+   },
+   "third_youtube_text": {
+      "description": "youtube third time description",
+      "message": "\u003Cb>Turn up the beat - Turn down bad mood\u003C/b> with Youtube on sidebar "
+   },
+   "third_zalo_text": {
+      "description": "zalo third time description",
+      "message": "\u003Cb>Use Messenger on sidebar to never miss a message from your crush.\u003C/b>\u003Cbr> Coc Coc has all the messenger tool you need: Facebook Messenger, \u003Cb>Zalo\u003C/b>, Skype, and Telegram. "
+   },
+   "try_now_button_text": {
+      "description": "onboarding try button text",
+      "message": "Try now"
+   },
+   "turn_off_light": {
+      "description": "Button turn light off",
+      "message": "Lights off"
+   },
+   "turn_on_light": {
+      "description": "Button turn light on",
+      "message": "Lights on"
+   }
+}

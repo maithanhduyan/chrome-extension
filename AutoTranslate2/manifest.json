@@ -1,0 +1,26 @@
+{
+    "name":"Auto Translate 2",
+    "description":"Auto translate when selected text/words by Google Translate",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background":{"service_worker":"background.js"},
+    "action":{
+        "default_title":"Auto Translate"
+    },
+    "content_scripts": [ {
+        "all_frames": true,
+        "css": [ "content.css" ],
+        "js": [ "jquery.min.js", "content.js" ],
+        "matches": [ "*://*/*" ],
+        "run_at": "document_start"
+     } ],
+    "permissions":[
+        "bookmarks",
+        "activeTab",
+        "scripting",
+        "contextMenus",
+        "tabs",
+        "storage"
+    ],
+    "options_page": "options.html"
+}
