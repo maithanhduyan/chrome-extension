@@ -1,0 +1,259 @@
+.svg_container {
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  display: flex;
+}
+.yt_ai_summary_header_action_btn svg.active {
+  fill: #f74332;
+}
+#menuSecondLine,
+#menuBottomLine {
+  width: 100%;
+  padding: 0;
+}
+
+.yt_ai_summary_container {
+  border: 1px solid rgba(183, 191, 196, 0.4);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.yt_ai_summary_header_text {
+  color: #fff;
+}
+
+.yt_ai_summary_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+  background: linear-gradient(0deg, #ff5e3b, #ee0100);
+  color: #fff;
+  padding: 7px 15px 7px 15px;
+  border-radius: 10px;
+}
+
+.yt_ai_summary_header .yt-logo {
+  position: relative;
+  top: 2px;
+}
+
+.yt_ai_summary_header_actions {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.yt_ai_summary_loading {
+  animation: rotation 0.5s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.yt_ai_summary_header_action_btn {
+  width: 24px;
+  height: 24px;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: rgba(183, 191, 196, 0.3);
+  margin: 7px 7px 7px 0;
+}
+
+.yt_ai_summary_header_action_btn {
+  background-color: rgba(255, 139, 139, 0.3);
+}
+
+.yt_ai_summary_header_hover_label {
+  position: relative;
+  top: 6px;
+  left: -35px;
+  padding: 5px 8px;
+  background-color: #030303;
+  color: white;
+  width: fit-content;
+  border-radius: 3px;
+  opacity: 0.85;
+  white-space: nowrap;
+  font-size: 11px;
+  text-align: center;
+  user-select: none;
+}
+
+.yt_ai_summary_icon:hover {
+  fill: #f74332;
+}
+
+.yt_ai_summary_icon:active {
+}
+
+.yt_ai_summary_header_action_btn:hover {
+  background-color: rgba(255, 139, 139, 0.3);
+}
+
+.yt_ai_summary_header_action_btn svg {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.yt_ai_summary_header_action_btn:active {
+  background-color: rgba(255, 139, 139, 0.3);
+}
+
+#yt_ai_summary_header_copy,
+#yt_ai_summary_share,
+#yt_ai_summary_header_ai_summary,
+#yt_ai_summary_header_summorize_by_time,
+#yt_ai_summary_header_track,
+#yt_ai_summary_header_summary,
+#yt_ai_summary_header_track,
+#yt_ai_summary_footer_summary,
+#yt_ai_summary_footer_track {
+  /* visibility: hidden; */
+  display: none;
+}
+
+.yt_ai_summary_header_icon_show {
+  /* visibility: visible !important; */
+  display: block !important;
+}
+
+.yt_ai_summary_header_toggle_rotate {
+  transform: rotate(180deg);
+}
+
+.yt_ai_summary_body {
+  overflow-y: hidden;
+  padding: 10px;
+  /*background-color: #F5F5F5;*/
+  border-radius: 10px;
+  display: none;
+  border: 1px solid rgba(183, 191, 196, 0.4);
+}
+
+.yt_ai_summary_body_show {
+  display: block;
+}
+
+.yt_ai_summary_text {
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.2em;
+  padding: 15px;
+  border-radius: 6px;
+  overflow-y: scroll;
+  max-height: 500px;
+  padding-left: 0;
+  scrollbar-color: #f74332 rgba(183, 191, 196, 0.4);
+}
+
+.yt_ai_summary_lang_select {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  font-size: 12px;
+  overflow-x: auto;
+}
+
+.yt_ai_summary_text::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 4px;
+  background-color: rgba(255, 139, 139, 0.4);
+}
+
+.yt_ai_summary_text::-webkit-scrollbar-track {
+  background: none;
+}
+
+.yt_ai_summary_text::-webkit-scrollbar-thumb {
+  background: #f74332;
+  border-radius: 4px;
+}
+
+.yt_ai_summary_text::-webkit-scrollbar-thumb:hover {
+  background: #f74332;
+  border-radius: 4px;
+}
+
+.yt_ai_summary_lang_select::-webkit-scrollbar {
+  height: 4px;
+  border-radius: 4px;
+  background-color: rgba(255, 139, 139, 0.4);
+}
+
+.yt_ai_summary_lang_select::-webkit-scrollbar-track {
+  background: none;
+}
+
+.yt_ai_summary_lang_select::-webkit-scrollbar-thumb {
+  background: #f74332;
+  border-radius: 4px;
+}
+
+.yt_ai_summary_lang_select::-webkit-scrollbar-thumb:hover {
+  background: #f74332;
+  border-radius: 4px;
+}
+
+.yt_ai_summary_lang_select button {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border-radius: 10px;
+  padding: 6px 10px;
+  background-color: rgba(183, 191, 196, 0.3);
+  white-space: nowrap;
+  min-width: fit-content;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  border: none;
+  color: #fff;
+}
+
+.yt_ai_summary_lang_select button:hover {
+  background-color: rgba(255, 139, 139, 0.3);
+}
+
+.yt_ai_summary_lange_selected {
+  background-color: rgba(255, 139, 139, 0.3);
+}
+
+.yt_ai_summary_transcript_text_segment,
+.yt_ai_summary_transcript_text {
+  display: flex;
+  justify-content: left;
+  align-items: baseline;
+  gap: 0;
+  margin: 0 0 16px;
+  grid-template-columns: auto auto;
+  font-size: 14px;
+  color: #7e7e7e;
+}
+
+.yt_ai_summary_transcript_text_timestamp {
+  color: #065fd4;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 16px;
+  font-size: 14px;
+}
