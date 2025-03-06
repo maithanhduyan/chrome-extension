@@ -1,203 +1,186 @@
-    var holds = [];
+let holds = [];
 
-    chrome.runtime.sendMessage( 'holds', function ( settings ) {
-        holds = settings;
+async function initHolds() {
+    holds = await new Promise(resolve => {
+        chrome.runtime.sendMessage("holds", resolve);
+    });
+}
+
+$(document).ready(async () => {
+    await initHolds();
+
+    const mouseoverDelay = 300;
+    let asyncCounter = 0;
+    let popup;
+    const popupOffset = 5;
+
+    function createPopup() {
+        popup = document.createElement("div");
+        popup.className = "auto-translate-div";
+        popup.style.position = "absolute";
+        popup.style.zIndex = "10000";
+    }
+
+    function resetStyles(el) {
+        if (el) {
+            el.style.color = "inherit";
+            el.style.background = "none";
+            el.style.border = "none";
+        }
+    }
+
+    function showPopup(context) {
+        if (!popup) createPopup();
+
+        popup.style.display = "block";
+        if (!popup.parentNode) document.body.appendChild(popup);
+
+        popup.innerHTML = context.theme;
+
+        const langEl = popup.querySelector(".lang");
+        const transEl = popup.querySelector(".translation");
+        const addEl = popup.querySelector(".additional");
+
+        resetStyles(langEl);
+        resetStyles(transEl);
+        resetStyles(addEl);
+
+        langEl.innerHTML = `${context.lang.from} → ${context.lang.to}`;
+        transEl.innerHTML = context.translation;
+        addEl.innerHTML = context.additional;
+
+        if (context.translation.startsWith("Translation failed")) {
+            transEl.style.color = "#ff4444";
+        }
+
+        const rect = context.rect;
+        const top = (popup.offsetHeight + popupOffset < rect.y)
+            ? rect.y - popup.offsetHeight - popupOffset
+            : rect.y + rect.h + popupOffset;
+
+        let left = rect.x + rect.w / 2 - popup.offsetWidth / 2;
+        left = Math.min(left, document.body.clientWidth - popup.offsetWidth - popupOffset);
+        left = Math.max(left, popupOffset);
+
+        popup.style.top = `${top}px`;
+        popup.style.left = `${left}px`;
+    }
+
+    chrome.runtime.onMessage.addListener((m) => {
+        if (m.message === "result" && m.context.async === asyncCounter) {
+            showPopup(m.context);
+        }
     });
 
+    const keys = ["Ctrl", "Alt", "Shift", "Meta"];
 
+    function invoke(e, type) {
+        const hotkeys = keys.filter(k => e[`${k.toLowerCase()}Key`]).join("+");
+        const selectionKey = `${hotkeys}+Selection`;
+        const mouseoverKey = `${hotkeys}+Mouseover`;
+        let text = "";
+        let rect = { x: 0, y: 0, w: 0, h: 0 };
 
-
-    $( document ).ready( function() {
-        var mouseoverDelay = 300;
-        var async = 0;
-        var popup;
-
-        function createPopup() {
-            popup = document.createElement('DIV');
-            popup.className = 'auto-translate-div';
+        if (holds.includes(selectionKey) && type === "mouseup") {
+            const selection = window.getSelection();
+            if (selection?.rangeCount > 0) {
+                text = selection.toString();
+                const bcr = selection.getRangeAt(0).getBoundingClientRect();
+                rect = {
+                    x: bcr.left + window.scrollX,
+                    y: bcr.top + window.scrollY,
+                    w: bcr.width,
+                    h: bcr.height,
+                };
+                sendTranslateRequest(text, selectionKey, rect);
+            }
         }
 
-        var popupOffset = 5;
-
-        function resetStyles(el) {
-            el.style.color = 'inherit';
-            el.style.background = 'none';
-            el.style.border = 'none';
-        }
-
-        function showPopup(context) {
-            popup || createPopup();
-
-            popup.style.display = 'block';
-            document.body.appendChild(popup);
-
-            popup.innerHTML = context.theme;
-
-            resetStyles(popup.getElementsByClassName('translation')[0]);
-            resetStyles(popup.getElementsByClassName('additional')[0]);
-            resetStyles(popup.getElementsByClassName('lang')[0]);
-
-            popup.getElementsByClassName('lang')[0].innerHTML = context.lang.from + ' &#8594; ' + context.lang.to;
-            popup.getElementsByClassName('translation')[0].innerHTML = context.translation;
-            popup.getElementsByClassName('additional')[0].innerHTML = context.additional;
-            Array.prototype.slice.call(popup.getElementsByClassName('additional')[0].getElementsByTagName('div')).forEach(function (el) {
-                resetStyles(el);
-            });
-
-            if ((popup.offsetHeight + popupOffset) < context.rect.y) {
-                popup.style.top = context.rect.y - popup.offsetHeight - popupOffset + 'px';
-            } else {
-                popup.style.top = context.rect.y + context.rect.h + popupOffset + 'px';
-            }
-
-            var l = context.rect.x + context.rect.w / 2 - popup.offsetWidth / 2;
-            l = Math.min(l, document.body.clientWidth - popup.offsetWidth - popupOffset);
-            l = Math.max(l, popupOffset);
-            popup.style.left = l + 'px';
-        }
-
-        chrome.runtime.onMessage.addListener( function(m, sender, sendResponse) {
-            switch (m.message) {
-                case "result":
-                    if (m.context.async === async) {
-                        showPopup(m.context);
-                    }
-                    break;
-            }
-        });
-
-        var keys = ['Ctrl', 'Alt', 'Shift', 'Meta'];
-        function invoke(e, type) {
-            var hotkeys = [];
-            for (var k in keys) {
-                if (e[keys[k].toLowerCase() + 'Key']) {
-                    hotkeys.push(keys[k]);
-                }
-            }
-
-            hotkeys = hotkeys.join('+');
-            var hs = hotkeys + '+Selection';
-            var hm = hotkeys + '+Mouseover';
-            var rect = {x: 0, y: 0, w: 0, h: 0};
-
-            var text = '';
-
-            if (holds.indexOf(hs) >= 0 && type == 'mouseup') {
-                var selection = window.getSelection();
-                if (selection && selection.rangeCount > 0) {
-                    text = selection.toString();
-                    var bcr = selection.getRangeAt(0).getBoundingClientRect();
-                    rect = {
-                        x: bcr.left + window.pageXOffset,
-                        y: bcr.top + window.pageYOffset,
-                        w: bcr.width,
-                        h: bcr.height
-                    };
-                    hotkeys = hs;
-                }
-            }
-
-            if (holds.indexOf(hm) >= 0 && type == 'mouseover') {
-                var data = getWordAtPoint(e.srcElement, e.x, e.y);
-                if (data == null) return;
+        if (holds.includes(mouseoverKey) && type === "mouseover") {
+            const data = getWordAtPoint(e.target, e.x, e.y);
+            if (data) {
                 text = data.text;
                 rect = data.rect;
-                hotkeys = hm;
+                sendTranslateRequest(text, mouseoverKey, rect);
             }
-
-            if (text.length < 1) {
-                return;
-            }
-
-            chrome.runtime.sendMessage({
-                message: 'translate',
-                context: {
-                    text: text,
-                    hotkeys: hotkeys,
-                    rect: rect,
-                    async: ++async
-                }
-            });
         }
+    }
 
-        var holdMouseover = false;
-        var holdMouseoverT;
-        var mouseoverT;
-        document.body.addEventListener('mouseup', function (e) {
-            clearTimeout(holdMouseoverT);
-            clearTimeout(mouseoverT);
-            holdMouseover = true;
-            holdMouseoverT = setTimeout(function(){
-                holdMouseover = false;
-            }, 2 * mouseoverDelay);
-            invoke(e, 'mouseup');
+    function sendTranslateRequest(text, hotkeys, rect) {
+        if (!text) return;
+        chrome.runtime.sendMessage({
+            message: "translate",
+            context: {
+                text,
+                hotkeys,
+                rect,
+                async: ++asyncCounter
+            }
         });
-        document.body.addEventListener('mousemove', function (e) {
-            if (holdMouseover) return;
-            clearTimeout(mouseoverT);
-            mouseoverT = setTimeout(invoke.bind(null, e, 'mouseover'), mouseoverDelay);
-        });
+    }
 
-        document.body.addEventListener('mousedown', function (e) {
-            if (!popup || !popup.parentNode) return;
+    let mouseoverTimeout;
+    let holdMouseover = false;
 
-            var r = true;
-            e = e.srcElement;
-            while (e.parentNode) {
-                if (e === popup) {
-                    r = false;
-                    break;
-                }
-                e = e.parentNode;
-            }
-            if (r) {
-                popup.style.display = 'none';
-                popup.parentNode.removeChild(popup);
-            }
-        }, false);
+    document.body.addEventListener("mouseup", e => {
+        clearTimeout(mouseoverTimeout);
+        holdMouseover = true;
+        setTimeout(() => holdMouseover = false, mouseoverDelay * 2);
+        invoke(e, "mouseup");
+    });
 
-        function getWordAtPoint(elem, x, y) {
-            if (elem.nodeType == elem.TEXT_NODE) {
-                var range = elem.ownerDocument.createRange();
-                range.selectNodeContents(elem);
-                var currentPos = 0;
-                var endPos = range.endOffset;
-                var bcr;
-                while (currentPos + 1 < endPos) {
-                    range.setStart(elem, currentPos);
-                    range.setEnd(elem, currentPos + 1);
-                    bcr = range.getBoundingClientRect();
-                    if (bcr.left <= x && bcr.right >= x && bcr.top <= y && bcr.bottom >= y) {
-                        range.expand("word");
-                        bcr = range.getBoundingClientRect();
-                        var ret = range.toString();
-                        range.detach();
+    document.body.addEventListener("mousemove", e => {
+        if (holdMouseover) return;
+        clearTimeout(mouseoverTimeout);
+        mouseoverTimeout = setTimeout(() => invoke(e, "mouseover"), mouseoverDelay);
+    });
 
-                        return {
-                            text: ret, rect: {
-                                x: bcr.left + window.pageXOffset,
-                                y: bcr.top + window.pageYOffset,
-                                w: bcr.width,
-                                h: bcr.height
-
-                            }
-                        };
-                    }
-                    currentPos += 1;
-                }
-            } else {
-                for (var i = 0; i < elem.childNodes.length; i++) {
-                    var range = elem.childNodes[i].ownerDocument.createRange();
-                    range.selectNodeContents(elem.childNodes[i]);
-                    if (range.getBoundingClientRect().left <= x && range.getBoundingClientRect().right >= x &&
-                        range.getBoundingClientRect().top <= y && range.getBoundingClientRect().bottom >= y) {
-                        range.detach();
-                        return getWordAtPoint(elem.childNodes[i], x, y);
-                    } else {
-                        range.detach();
-                    }
-                }
-            }
-            return null;
+    document.body.addEventListener("mousedown", e => {
+        if (!popup || !popup.parentNode) return;
+        let target = e.target;
+        while (target) {
+            if (target === popup) return;
+            target = target.parentNode;
         }
-    } );
+        popup.style.display = "none";
+        popup.parentNode.removeChild(popup);
+    });
+
+    function getWordAtPoint(elem, x, y) {
+        if (elem.nodeType === Node.TEXT_NODE) {
+            const range = elem.ownerDocument.createRange();
+            range.selectNodeContents(elem);
+            let pos = 0;
+            const end = range.endOffset;
+
+            while (pos < end) {
+                range.setStart(elem, pos);
+                range.setEnd(elem, pos + 1);
+                const bcr = range.getBoundingClientRect();
+                if (bcr.left <= x && bcr.right >= x && bcr.top <= y && bcr.bottom >= y) {
+                    range.expand("word");
+                    const text = range.toString();
+                    const rect = range.getBoundingClientRect();
+                    range.detach();
+                    return {
+                        text,
+                        rect: {
+                            x: rect.left + window.scrollX,
+                            y: rect.top + window.scrollY,
+                            w: rect.width,
+                            h: rect.height
+                        }
+                    };
+                }
+                pos++;
+            }
+            range.detach();
+        } else {
+            for (const child of elem.childNodes) {
+                const result = getWordAtPoint(child, x, y);
+                if (result) return result;
+            }
+        }
+        return null;
+    }
+});

@@ -1,0 +1,53 @@
+div.auto-translate-div {
+  position: absolute;
+  display: none;
+  z-index: 9999;
+  font-size: 1em;
+}
+
+div.auto-translate-lang {
+  float: right;
+  font-size: 80%;
+}
+
+div.auto-translate-black {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  max-width: 350px !important;
+  color: #eee !important;
+  border-color: #111 !important;
+  border-width: 0px !important;
+  border-radius: 5px !important;
+  -webkit-border-radius: 5px !important;
+  background-color: rgba(17, 17, 17, 0.9) !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+  overflow: visible !important;
+  z-index: 999999 !important;
+  text-align: left !important;
+  box-shadow: #666 2px 2px 2px !important;
+}
+
+div.auto-translate-white {
+  max-width: 300px !important;
+  color: #111 !important;
+  opacity: 1 !important;
+  border: 1px solid #bbb !important;
+  border-radius: 5px !important;
+  -webkit-border-radius: 5px !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+  overflow: visible !important;
+  z-index: 999999 !important;
+  text-align: left !important;
+  box-shadow: #aaa 2px 2px 2px !important;
+}
+
+div.auto-translate-black div.auto-translate-translation {
+  font-size: 13px;
+  color: yellow !important;
+}
+
+div.auto-translate-white div.auto-translate-translation {
+  font-size: 13px;
+}
