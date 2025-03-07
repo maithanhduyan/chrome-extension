@@ -20,8 +20,10 @@ $(document).ready(async () => {
     }
 
     const mouseoverDelay = 300;
+    const MAX_SAVED_TRANSLATIONS = 100; // Giới hạn số lượng bản dịch
     let asyncCounter = 0;
     let popup;
+    let historyPopup;
     const popupOffset = 5;
 
     function createPopup() {
@@ -29,6 +31,18 @@ $(document).ready(async () => {
         popup.className = "auto-translate-div";
         popup.style.position = "absolute";
         popup.style.zIndex = "10000";
+    }
+
+    function createHistoryPopup() {
+        historyPopup = document.createElement("div");
+        historyPopup.className = "auto-translate-history-div";
+        historyPopup.style.position = "fixed";
+        historyPopup.style.zIndex = "10001";
+        historyPopup.style.right = "10px";
+        historyPopup.style.top = "10px";
+        historyPopup.style.width = "300px";
+        historyPopup.style.maxHeight = "400px";
+        historyPopup.style.overflowY = "auto";
     }
 
     function resetStyles(el) {
@@ -49,7 +63,11 @@ $(document).ready(async () => {
             <div class="auto-translate-container ${context.themeName}">
                 <div class="auto-translate-header">
                     <span class="lang auto-translate-lang"></span>
-                    <button class="save-btn">Save</button>
+                    <div class="button-group">
+                        <button class="copy-btn">Copy</button>
+                        <button class="save-btn">Save</button>
+                        <button class="history-btn">History</button>
+                    </div>
                 </div>
                 <div class="translation auto-translate-translation"></div>
                 <div class="additional"></div>
@@ -81,16 +99,34 @@ $(document).ready(async () => {
                 align-items: center;
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
-            .save-btn {
+            .button-group {
+                display: flex;
+                gap: 5px;
+            }
+            .copy-btn, .save-btn, .history-btn {
                 padding: 2px 10px;
-                background: #4CAF50;
-                color: white;
                 border: none;
                 border-radius: 3px;
                 cursor: pointer;
+                color: white;
+            }
+            .copy-btn {
+                background: #2196F3;
+            }
+            .copy-btn:hover {
+                background: #1976D2;
+            }
+            .save-btn {
+                background: #4CAF50;
             }
             .save-btn:hover {
                 background: #45a049;
+            }
+            .history-btn {
+                background: #9C27B0;
+            }
+            .history-btn:hover {
+                background: #7B1FA2;
             }
             .auto-translate-translation {
                 padding: 10px;
@@ -99,16 +135,47 @@ $(document).ready(async () => {
             .additional {
                 padding: 0 10px 10px;
             }
+            .auto-translate-history-div {
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                padding: 10px;
+            }
+            .history-item {
+                border-bottom: 1px solid #eee;
+                padding: 5px 0;
+                position: relative;
+            }
+            .history-item:last-child {
+                border-bottom: none;
+            }
+            .delete-btn {
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                background: #f44336;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                padding: 2px 5px;
+                cursor: pointer;
+            }
+            .delete-btn:hover {
+                background: #d32f2f;
+            }
         `;
         popup.appendChild(style);
 
         const langEl = popup.querySelector(".lang");
         const transEl = popup.querySelector(".translation");
         const addEl = popup.querySelector(".additional");
+        const copyBtn = popup.querySelector(".copy-btn");
         const saveBtn = popup.querySelector(".save-btn");
+        const historyBtn = popup.querySelector(".history-btn");
 
-        if (!langEl || !transEl || !addEl || !saveBtn) {
-            console.error('Failed to find popup elements:', { langEl, transEl, addEl, saveBtn });
+        if (!langEl || !transEl || !addEl || !copyBtn || !saveBtn || !historyBtn) {
+            console.error('Failed to find popup elements');
             return;
         }
 
@@ -124,6 +191,17 @@ $(document).ready(async () => {
             transEl.style.color = "#ff4444";
         }
 
+        // Nút Copy
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(context.translation).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                }, 2000);
+            });
+        });
+
+        // Nút Save
         saveBtn.addEventListener('click', () => {
             const translationData = {
                 original: context.text,
@@ -133,26 +211,69 @@ $(document).ready(async () => {
                 timestamp: new Date().toISOString()
             };
 
-            if (chrome.storage) {
-                chrome.storage.local.get(['savedTranslations'], (result) => {
-                    let savedTranslations = result.savedTranslations || [];
-                    savedTranslations.push(translationData);
+            chrome.storage.local.get(['savedTranslations'], (result) => {
+                let savedTranslations = result.savedTranslations || [];
+                if (savedTranslations.length >= MAX_SAVED_TRANSLATIONS) {
+                    savedTranslations.shift(); // Xóa bản cũ nhất nếu vượt giới hạn
+                }
+                savedTranslations.push(translationData);
 
-                    chrome.storage.local.set({ savedTranslations }, () => {
-                        saveBtn.textContent = 'Saved!';
-                        saveBtn.style.background = '#666';
-                        saveBtn.disabled = true;
+                chrome.storage.local.set({ savedTranslations }, () => {
+                    saveBtn.textContent = 'Saved!';
+                    saveBtn.style.background = '#666';
+                    saveBtn.disabled = true;
 
-                        setTimeout(() => {
-                            saveBtn.textContent = 'Save';
-                            saveBtn.style.background = '#4CAF50';
-                            saveBtn.disabled = false;
-                        }, 2000);
+                    // Thông báo Chrome
+                    if (chrome.notifications) {
+                        chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: 'assets/icons/48.png', // Cần thêm icon vào project
+                            title: 'Translation Saved',
+                            message: 'Your translation has been saved successfully!'
+                        });
+                    }
+
+                    setTimeout(() => {
+                        saveBtn.textContent = 'Save';
+                        saveBtn.style.background = '#4CAF50';
+                        saveBtn.disabled = false;
+                    }, 2000);
+                });
+            });
+        });
+
+        // Nút History
+        historyBtn.addEventListener('click', () => {
+            if (!historyPopup) createHistoryPopup();
+
+            chrome.storage.local.get(['savedTranslations'], (result) => {
+                const savedTranslations = result.savedTranslations || [];
+                historyPopup.innerHTML = `
+                    <h3>Saved Translations (${savedTranslations.length}/${MAX_SAVED_TRANSLATIONS})</h3>
+                    <div class="history-list">
+                        ${savedTranslations.reverse().map((item, index) => `
+                            <div class="history-item">
+                                <small>${new Date(item.timestamp).toLocaleString()}</small>
+                                <p><strong>${item.original}</strong> → ${item.translated}</p>
+                                <button class="delete-btn" data-index="${savedTranslations.length - 1 - index}">Delete</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                if (!historyPopup.parentNode) document.body.appendChild(historyPopup);
+
+                // Xử lý xóa
+                historyPopup.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const index = parseInt(btn.dataset.index);
+                        savedTranslations.splice(index, 1);
+                        chrome.storage.local.set({ savedTranslations }, () => {
+                            btn.parentElement.remove();
+                        });
                     });
                 });
-            } else {
-                console.error('Chrome storage is not available');
-            }
+            });
         });
 
         const rect = context.rect;
@@ -214,7 +335,7 @@ $(document).ready(async () => {
 
     function sendTranslateRequest(text, hotkeys, rect) {
         if (!text) return;
-        if (chrome.runtime) {
+        if (chrome.runtime && typeof chrome.runtime.sendMessage === 'function') {
             chrome.runtime.sendMessage({
                 message: "translate",
                 context: {
@@ -246,14 +367,18 @@ $(document).ready(async () => {
     });
 
     document.body.addEventListener("mousedown", e => {
-        if (!popup || !popup.parentNode) return;
         let target = e.target;
         while (target) {
-            if (target === popup) return;
+            if (target === popup || target === historyPopup) return;
             target = target.parentNode;
         }
-        popup.style.display = "none";
-        popup.parentNode.removeChild(popup);
+        if (popup && popup.parentNode) {
+            popup.style.display = "none";
+            popup.parentNode.removeChild(popup);
+        }
+        if (historyPopup && historyPopup.parentNode) {
+            historyPopup.parentNode.removeChild(historyPopup);
+        }
     });
 
     function getWordAtPoint(elem, x, y) {
