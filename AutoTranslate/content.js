@@ -1,13 +1,23 @@
 let holds = [];
 
 async function initHolds() {
-    holds = await new Promise(resolve => {
+    if (!chrome.runtime || typeof chrome.runtime.sendMessage !== 'function') {
+        console.error('Chrome runtime is not available');
+        return [];
+    }
+    return new Promise(resolve => {
         chrome.runtime.sendMessage("holds", resolve);
     });
 }
 
 $(document).ready(async () => {
-    await initHolds();
+    try {
+        holds = await initHolds();
+        console.log('Holds initialized:', holds);
+    } catch (error) {
+        console.error('Failed to initialize holds:', error);
+        return;
+    }
 
     const mouseoverDelay = 300;
     let asyncCounter = 0;
@@ -35,23 +45,115 @@ $(document).ready(async () => {
         popup.style.display = "block";
         if (!popup.parentNode) document.body.appendChild(popup);
 
-        popup.innerHTML = context.theme;
+        popup.innerHTML = `
+            <div class="auto-translate-container ${context.themeName}">
+                <div class="auto-translate-header">
+                    <span class="lang auto-translate-lang"></span>
+                    <button class="save-btn">Save</button>
+                </div>
+                <div class="translation auto-translate-translation"></div>
+                <div class="additional"></div>
+            </div>
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+            .auto-translate-container {
+                min-width: 200px;
+                max-width: 400px;
+                border-radius: 5px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                font-family: Arial, sans-serif;
+            }
+            .auto-translate-container.black {
+                background: #333;
+                color: #fff;
+            }
+            .auto-translate-container.white {
+                background: #fff;
+                color: #333;
+                border: 1px solid #ddd;
+            }
+            .auto-translate-header {
+                padding: 5px 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .save-btn {
+                padding: 2px 10px;
+                background: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            .save-btn:hover {
+                background: #45a049;
+            }
+            .auto-translate-translation {
+                padding: 10px;
+                word-wrap: break-word;
+            }
+            .additional {
+                padding: 0 10px 10px;
+            }
+        `;
+        popup.appendChild(style);
 
         const langEl = popup.querySelector(".lang");
         const transEl = popup.querySelector(".translation");
         const addEl = popup.querySelector(".additional");
+        const saveBtn = popup.querySelector(".save-btn");
+
+        if (!langEl || !transEl || !addEl || !saveBtn) {
+            console.error('Failed to find popup elements:', { langEl, transEl, addEl, saveBtn });
+            return;
+        }
 
         resetStyles(langEl);
         resetStyles(transEl);
         resetStyles(addEl);
 
         langEl.innerHTML = `${context.lang.from} → ${context.lang.to}`;
-        transEl.innerHTML = context.translation;
-        addEl.innerHTML = context.additional;
+        transEl.innerHTML = context.translation || 'No translation available';
+        addEl.innerHTML = context.additional || '';
 
-        if (context.translation.startsWith("Translation failed")) {
+        if (context.translation && context.translation.startsWith("Translation failed")) {
             transEl.style.color = "#ff4444";
         }
+
+        saveBtn.addEventListener('click', () => {
+            const translationData = {
+                original: context.text,
+                translated: context.translation,
+                from: context.lang.from,
+                to: context.lang.to,
+                timestamp: new Date().toISOString()
+            };
+
+            if (chrome.storage) {
+                chrome.storage.local.get(['savedTranslations'], (result) => {
+                    let savedTranslations = result.savedTranslations || [];
+                    savedTranslations.push(translationData);
+
+                    chrome.storage.local.set({ savedTranslations }, () => {
+                        saveBtn.textContent = 'Saved!';
+                        saveBtn.style.background = '#666';
+                        saveBtn.disabled = true;
+
+                        setTimeout(() => {
+                            saveBtn.textContent = 'Save';
+                            saveBtn.style.background = '#4CAF50';
+                            saveBtn.disabled = false;
+                        }, 2000);
+                    });
+                });
+            } else {
+                console.error('Chrome storage is not available');
+            }
+        });
 
         const rect = context.rect;
         const top = (popup.offsetHeight + popupOffset < rect.y)
@@ -66,11 +168,15 @@ $(document).ready(async () => {
         popup.style.left = `${left}px`;
     }
 
-    chrome.runtime.onMessage.addListener((m) => {
-        if (m.message === "result" && m.context.async === asyncCounter) {
-            showPopup(m.context);
-        }
-    });
+    if (chrome.runtime) {
+        chrome.runtime.onMessage.addListener((m) => {
+            if (m.message === "result" && m.context.async === asyncCounter) {
+                showPopup(m.context);
+            }
+        });
+    } else {
+        console.error('Chrome runtime is not available for message listener');
+    }
 
     const keys = ["Ctrl", "Alt", "Shift", "Meta"];
 
@@ -108,15 +214,19 @@ $(document).ready(async () => {
 
     function sendTranslateRequest(text, hotkeys, rect) {
         if (!text) return;
-        chrome.runtime.sendMessage({
-            message: "translate",
-            context: {
-                text,
-                hotkeys,
-                rect,
-                async: ++asyncCounter
-            }
-        });
+        if (chrome.runtime) {
+            chrome.runtime.sendMessage({
+                message: "translate",
+                context: {
+                    text,
+                    hotkeys,
+                    rect,
+                    async: ++asyncCounter
+                }
+            });
+        } else {
+            console.error('Cannot send translate request: Chrome runtime unavailable');
+        }
     }
 
     let mouseoverTimeout;
