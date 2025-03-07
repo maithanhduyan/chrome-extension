@@ -299,17 +299,30 @@ async function translate(text, options, context) {
 let holds = [];
 
 async function initHolds() {
-    holds = await new Promise(resolve => {
+    if (!window.chrome || !chrome.runtime || typeof chrome.runtime.sendMessage !== 'function') {
+        console.error('Chrome runtime is not available. Ensure this is running in a Chrome extension context.');
+        return [];
+    }
+    return new Promise(resolve => {
         chrome.runtime.sendMessage("holds", resolve);
     });
 }
 
-$(document).ready(async () => {
-    await initHolds();
+// Thay $(document).ready bằng vanilla JS
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        holds = await initHolds();
+        console.log('Holds initialized:', holds);
+    } catch (error) {
+        console.error('Failed to initialize holds:', error);
+        return;
+    }
 
     const mouseoverDelay = 300;
+    const MAX_SAVED_TRANSLATIONS = 100;
     let asyncCounter = 0;
     let popup;
+    let historyPopup;
     const popupOffset = 5;
 
     function createPopup() {
@@ -317,6 +330,18 @@ $(document).ready(async () => {
         popup.className = "auto-translate-div";
         popup.style.position = "absolute";
         popup.style.zIndex = "10000";
+    }
+
+    function createHistoryPopup() {
+        historyPopup = document.createElement("div");
+        historyPopup.className = "auto-translate-history-div";
+        historyPopup.style.position = "fixed";
+        historyPopup.style.zIndex = "10001";
+        historyPopup.style.right = "10px";
+        historyPopup.style.top = "10px";
+        historyPopup.style.width = "300px";
+        historyPopup.style.maxHeight = "400px";
+        historyPopup.style.overflowY = "auto";
     }
 
     function resetStyles(el) {
@@ -333,23 +358,289 @@ $(document).ready(async () => {
         popup.style.display = "block";
         if (!popup.parentNode) document.body.appendChild(popup);
 
-        popup.innerHTML = context.theme;
+        popup.innerHTML = `
+            <div class="auto-translate-container ${context.themeName}">
+                <div class="auto-translate-header">
+                    <span class="lang auto-translate-lang"></span>
+                    <div class="button-group">
+                        <button class="copy-btn">Copy</button>
+                        <button class="save-btn">Save</button>
+                        <button class="mark-btn">Mark</button>
+                        <button class="unmark-btn">Unmark</button>
+                        <button class="history-btn">History</button>
+                    </div>
+                </div>
+                <div class="translation auto-translate-translation"></div>
+                <div class="additional"></div>
+            </div>
+        `;
+
+        const style = document.createElement('style');
+        try {
+            style.textContent = `
+                .auto-translate-container {
+                    min-width: 200px;
+                    max-width: 400px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    font-family: Arial, sans-serif;
+                }
+                .auto-translate-container.black {
+                    background: #333;
+                    color: #fff;
+                }
+                .auto-translate-container.white {
+                    background: #fff;
+                    color: #333;
+                    border: 1px solid #ddd;
+                }
+                .auto-translate-header {
+                    padding: 5px 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                }
+                .button-group {
+                    display: flex;
+                    gap: 5px;
+                }
+                .copy-btn, .save-btn, .mark-btn, .unmark-btn, .history-btn {
+                    padding: 2px 10px;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    color: white;
+                }
+                .copy-btn {
+                    background: #2196F3;
+                }
+                .copy-btn:hover {
+                    background: #1976D2;
+                }
+                .save-btn {
+                    background: #4CAF50;
+                }
+                .save-btn:hover {
+                    background: #45a049;
+                }
+                .mark-btn {
+                    background: #FFC107;
+                    color: #000;
+                }
+                .mark-btn:hover {
+                    background: #FFB300;
+                }
+                .unmark-btn {
+                    background: #FF5722;
+                    color: #fff;
+                }
+                .unmark-btn:hover {
+                    background: #E64A19;
+                }
+                .history-btn {
+                    background: #9C27B0;
+                }
+                .history-btn:hover {
+                    background: #7B1FA2;
+                }
+                .auto-translate-translation {
+                    padding: 10px;
+                    word-wrap: break-word;
+                }
+                .additional {
+                    padding: 0 10px 10px;
+                }
+                .auto-translate-history-div {
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    padding: 10px;
+                }
+                .history-item {
+                    border-bottom: 1px solid #eee;
+                    padding: 5px 0;
+                    position: relative;
+                }
+                .history-item:last-child {
+                    border-bottom: none;
+                }
+                .delete-btn {
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    background: #f44336;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    padding: 2px 5px;
+                    cursor: pointer;
+                }
+                .delete-btn:hover {
+                    background: #d32f2f;
+                }
+            `;
+            popup.appendChild(style);
+        } catch (error) {
+            console.error('Failed to apply CSS:', error);
+        }
 
         const langEl = popup.querySelector(".lang");
         const transEl = popup.querySelector(".translation");
         const addEl = popup.querySelector(".additional");
+        const copyBtn = popup.querySelector(".copy-btn");
+        const saveBtn = popup.querySelector(".save-btn");
+        const markBtn = popup.querySelector(".mark-btn");
+        const unmarkBtn = popup.querySelector(".unmark-btn");
+        const historyBtn = popup.querySelector(".history-btn");
+
+        if (!langEl || !transEl || !addEl || !copyBtn || !saveBtn || !markBtn || !unmarkBtn || !historyBtn) {
+            console.error('Failed to find popup elements:', { langEl, transEl, addEl, copyBtn, saveBtn, markBtn, unmarkBtn, historyBtn });
+            return;
+        }
 
         resetStyles(langEl);
         resetStyles(transEl);
         resetStyles(addEl);
 
         langEl.innerHTML = `${context.lang.from} → ${context.lang.to}`;
-        transEl.innerHTML = context.translation;
-        addEl.innerHTML = context.additional;
+        transEl.innerHTML = context.translation || 'No translation available';
+        addEl.innerHTML = context.additional || '';
 
-        if (context.translation.startsWith("Translation failed")) {
+        if (context.translation && context.translation.startsWith("Translation failed")) {
             transEl.style.color = "#ff4444";
         }
+
+        // Nút Copy
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(context.translation).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => copyBtn.textContent = 'Copy', 2000);
+            });
+        });
+
+        // Nút Save
+        saveBtn.addEventListener('click', () => {
+            const translationData = {
+                original: context.text,
+                translated: context.translation,
+                from: context.lang.from,
+                to: context.lang.to,
+                timestamp: new Date().toISOString()
+            };
+
+            chrome.storage.local.get(['savedTranslations'], (result) => {
+                let savedTranslations = result.savedTranslations || [];
+                if (savedTranslations.length >= MAX_SAVED_TRANSLATIONS) {
+                    savedTranslations.shift();
+                }
+                savedTranslations.push(translationData);
+
+                chrome.storage.local.set({ savedTranslations }, () => {
+                    saveBtn.textContent = 'Saved!';
+                    saveBtn.style.background = '#666';
+                    saveBtn.disabled = true;
+
+                    if (chrome.notifications) {
+                        chrome.notifications.create({
+                            type: 'basic',
+                            iconUrl: 'icon.png',
+                            title: 'Translation Saved',
+                            message: 'Your translation has been saved successfully!'
+                        });
+                    }
+
+                    setTimeout(() => {
+                        saveBtn.textContent = 'Save';
+                        saveBtn.style.background = '#4CAF50';
+                        saveBtn.disabled = false;
+                    }, 2000);
+                });
+            });
+        });
+
+        // Nút Mark
+        markBtn.addEventListener('click', () => {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const span = document.createElement('span');
+                span.style.backgroundColor = 'yellow';
+                span.className = 'auto-translate-marked';
+                try {
+                    range.surroundContents(span);
+                    markBtn.textContent = 'Marked!';
+                    markBtn.disabled = true;
+                    setTimeout(() => {
+                        markBtn.textContent = 'Mark';
+                        markBtn.disabled = false;
+                    }, 2000);
+                } catch (error) {
+                    console.error('Failed to mark selection:', error);
+                    markBtn.textContent = 'Error';
+                    setTimeout(() => markBtn.textContent = 'Mark', 2000);
+                }
+            }
+        });
+
+        // Nút Unmark
+        unmarkBtn.addEventListener('click', () => {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const markedSpan = range.commonAncestorContainer.parentElement;
+                if (markedSpan && markedSpan.className === 'auto-translate-marked') {
+                    const parent = markedSpan.parentNode;
+                    while (markedSpan.firstChild) {
+                        parent.insertBefore(markedSpan.firstChild, markedSpan);
+                    }
+                    parent.removeChild(markedSpan);
+                    unmarkBtn.textContent = 'Unmarked!';
+                    unmarkBtn.disabled = true;
+                    setTimeout(() => {
+                        unmarkBtn.textContent = 'Unmark';
+                        unmarkBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    unmarkBtn.textContent = 'No Mark';
+                    setTimeout(() => unmarkBtn.textContent = 'Unmark', 2000);
+                }
+            }
+        });
+
+        // Nút History
+        historyBtn.addEventListener('click', () => {
+            if (!historyPopup) createHistoryPopup();
+
+            chrome.storage.local.get(['savedTranslations'], (result) => {
+                const savedTranslations = result.savedTranslations || [];
+                historyPopup.innerHTML = `
+                    <h3>Saved Translations (${savedTranslations.length}/${MAX_SAVED_TRANSLATIONS})</h3>
+                    <div class="history-list">
+                        ${savedTranslations.reverse().map((item, index) => `
+                            <div class="history-item">
+                                <small>${new Date(item.timestamp).toLocaleString()}</small>
+                                <p><strong>${item.original}</strong> → ${item.translated}</p>
+                                <button class="delete-btn" data-index="${savedTranslations.length - 1 - index}">Delete</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                if (!historyPopup.parentNode) document.body.appendChild(historyPopup);
+
+                historyPopup.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const index = parseInt(btn.dataset.index);
+                        savedTranslations.splice(index, 1);
+                        chrome.storage.local.set({ savedTranslations }, () => {
+                            btn.parentElement.remove();
+                        });
+                    });
+                });
+            });
+        });
 
         const rect = context.rect;
         const top = (popup.offsetHeight + popupOffset < rect.y)
@@ -364,16 +655,66 @@ $(document).ready(async () => {
         popup.style.left = `${left}px`;
     }
 
-    chrome.runtime.onMessage.addListener((m) => {
-        if (m.message === "result" && m.context.async === asyncCounter) {
-            showPopup(m.context);
+    if (chrome.runtime) {
+        chrome.runtime.onMessage.addListener((m) => {
+            if (m.message === "result" && m.context.async === asyncCounter) {
+                showPopup(m.context);
+            }
+        });
+    } else {
+        console.error('Chrome runtime is not available for message listener');
+    }
+
+    function sendTranslateRequest(text, hotkeys, rect) {
+        if (!text) return;
+        if (chrome.runtime && typeof chrome.runtime.sendMessage === 'function') {
+            chrome.runtime.sendMessage({
+                message: "translate",
+                context: {
+                    text,
+                    hotkeys,
+                    rect,
+                    async: ++asyncCounter
+                }
+            });
+        } else {
+            console.error('Cannot send translate request: Chrome runtime unavailable');
+        }
+    }
+
+    let mouseoverTimeout;
+    let holdMouseover = false;
+
+    document.body.addEventListener("mouseup", e => {
+        clearTimeout(mouseoverTimeout);
+        holdMouseover = true;
+        setTimeout(() => holdMouseover = false, mouseoverDelay * 2);
+        invoke(e, "mouseup");
+    });
+
+    document.body.addEventListener("mousemove", e => {
+        if (holdMouseover) return;
+        clearTimeout(mouseoverTimeout);
+        mouseoverTimeout = setTimeout(() => invoke(e, "mouseover"), mouseoverDelay);
+    });
+
+    document.body.addEventListener("mousedown", e => {
+        let target = e.target;
+        while (target) {
+            if (target === popup || target === historyPopup) return;
+            target = target.parentNode;
+        }
+        if (popup && popup.parentNode) {
+            popup.style.display = "none";
+            popup.parentNode.removeChild(popup);
+        }
+        if (historyPopup && historyPopup.parentNode) {
+            historyPopup.parentNode.removeChild(historyPopup);
         }
     });
 
-    const keys = ["Ctrl", "Alt", "Shift", "Meta"];
-
     function invoke(e, type) {
-        const hotkeys = keys.filter(k => e[`${k.toLowerCase()}Key`]).join("+");
+        const hotkeys = ["Ctrl", "Alt", "Shift", "Meta"].filter(k => e[`${k.toLowerCase()}Key`]).join("+");
         const selectionKey = `${hotkeys}+Selection`;
         const mouseoverKey = `${hotkeys}+Mouseover`;
         let text = "";
@@ -403,46 +744,6 @@ $(document).ready(async () => {
             }
         }
     }
-
-    function sendTranslateRequest(text, hotkeys, rect) {
-        if (!text) return;
-        chrome.runtime.sendMessage({
-            message: "translate",
-            context: {
-                text,
-                hotkeys,
-                rect,
-                async: ++asyncCounter
-            }
-        });
-    }
-
-    let mouseoverTimeout;
-    let holdMouseover = false;
-
-    document.body.addEventListener("mouseup", e => {
-        clearTimeout(mouseoverTimeout);
-        holdMouseover = true;
-        setTimeout(() => holdMouseover = false, mouseoverDelay * 2);
-        invoke(e, "mouseup");
-    });
-
-    document.body.addEventListener("mousemove", e => {
-        if (holdMouseover) return;
-        clearTimeout(mouseoverTimeout);
-        mouseoverTimeout = setTimeout(() => invoke(e, "mouseover"), mouseoverDelay);
-    });
-
-    document.body.addEventListener("mousedown", e => {
-        if (!popup || !popup.parentNode) return;
-        let target = e.target;
-        while (target) {
-            if (target === popup) return;
-            target = target.parentNode;
-        }
-        popup.style.display = "none";
-        popup.parentNode.removeChild(popup);
-    });
 
     function getWordAtPoint(elem, x, y) {
         if (elem.nodeType === Node.TEXT_NODE) {

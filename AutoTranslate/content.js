@@ -10,7 +10,8 @@ async function initHolds() {
     });
 }
 
-$(document).ready(async () => {
+// Thay $(document).ready bằng vanilla JS
+document.addEventListener('DOMContentLoaded', async () => {
     try {
         holds = await initHolds();
         console.log('Holds initialized:', holds);
@@ -67,6 +68,7 @@ $(document).ready(async () => {
                         <button class="copy-btn">Copy</button>
                         <button class="save-btn">Save</button>
                         <button class="mark-btn">Mark</button>
+                        <button class="unmark-btn">Unmark</button>
                         <button class="history-btn">History</button>
                     </div>
                 </div>
@@ -105,7 +107,7 @@ $(document).ready(async () => {
                     display: flex;
                     gap: 5px;
                 }
-                .copy-btn, .save-btn, .mark-btn, .history-btn {
+                .copy-btn, .save-btn, .mark-btn, .unmark-btn, .history-btn {
                     padding: 2px 10px;
                     border: none;
                     border-radius: 3px;
@@ -130,6 +132,13 @@ $(document).ready(async () => {
                 }
                 .mark-btn:hover {
                     background: #FFB300;
+                }
+                .unmark-btn {
+                    background: #FF5722;
+                    color: #fff;
+                }
+                .unmark-btn:hover {
+                    background: #E64A19;
                 }
                 .history-btn {
                     background: #9C27B0;
@@ -185,10 +194,11 @@ $(document).ready(async () => {
         const copyBtn = popup.querySelector(".copy-btn");
         const saveBtn = popup.querySelector(".save-btn");
         const markBtn = popup.querySelector(".mark-btn");
+        const unmarkBtn = popup.querySelector(".unmark-btn");
         const historyBtn = popup.querySelector(".history-btn");
 
-        if (!langEl || !transEl || !addEl || !copyBtn || !saveBtn || !markBtn || !historyBtn) {
-            console.error('Failed to find popup elements:', { langEl, transEl, addEl, copyBtn, saveBtn, markBtn, historyBtn });
+        if (!langEl || !transEl || !addEl || !copyBtn || !saveBtn || !markBtn || !unmarkBtn || !historyBtn) {
+            console.error('Failed to find popup elements:', { langEl, transEl, addEl, copyBtn, saveBtn, markBtn, unmarkBtn, historyBtn });
             return;
         }
 
@@ -272,6 +282,31 @@ $(document).ready(async () => {
                     console.error('Failed to mark selection:', error);
                     markBtn.textContent = 'Error';
                     setTimeout(() => markBtn.textContent = 'Mark', 2000);
+                }
+            }
+        });
+
+        // Nút Unmark
+        unmarkBtn.addEventListener('click', () => {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const markedSpan = range.commonAncestorContainer.parentElement;
+                if (markedSpan && markedSpan.className === 'auto-translate-marked') {
+                    const parent = markedSpan.parentNode;
+                    while (markedSpan.firstChild) {
+                        parent.insertBefore(markedSpan.firstChild, markedSpan);
+                    }
+                    parent.removeChild(markedSpan);
+                    unmarkBtn.textContent = 'Unmarked!';
+                    unmarkBtn.disabled = true;
+                    setTimeout(() => {
+                        unmarkBtn.textContent = 'Unmark';
+                        unmarkBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    unmarkBtn.textContent = 'No Mark';
+                    setTimeout(() => unmarkBtn.textContent = 'Unmark', 2000);
                 }
             }
         });
