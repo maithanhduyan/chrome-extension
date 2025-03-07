@@ -99,8 +99,8 @@ def write_markdown(files, output_file, root_dir, exclude_dirs=None, exclude_file
 
 
 if __name__ == "__main__":
-    root_dir = "../"  # Thư mục gốc của dự án
-    output_file = "project_structure.md"
+    root_dir = "../AUTOTRANSLATE/"  # Thư mục gốc của dự án
+    output_file = ".tools/project_structure.md"
     extensions = ["js", "html"]  # Danh sách các phần mở rộng tệp
     filenames = []  # Danh sách các tên tệp cụ thể
     exclude_dirs = [
@@ -129,3 +129,4 @@ if __name__ == "__main__":
     ]  # Tệp cần bỏ qua
     files = collect_files(root_dir, extensions, filenames, exclude_dirs, exclude_files)
     write_markdown(files, output_file, root_dir, exclude_dirs, exclude_files)
+    print("Complete.")

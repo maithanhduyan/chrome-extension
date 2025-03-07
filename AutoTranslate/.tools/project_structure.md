@@ -1,7 +1,7 @@
 # Cấu trúc Dự án như sau:
 
 ```
-../
+../AUTOTRANSLATE/
 ├── background.js
 ├── content.js
 └── manifest.json
@@ -9,7 +9,7 @@
 
 # Danh sách chi tiết các file:
 
-## File ../background.js:
+## File ../AUTOTRANSLATE/background.js:
 ```javascript
 // Khởi tạo đối tượng ngôn ngữ
 const languages = {
@@ -294,7 +294,7 @@ async function translate(text, options, context) {
 }
 ```
 
-## File ../content.js:
+## File ../AUTOTRANSLATE/content.js:
 ```javascript
 let holds = [];
 
