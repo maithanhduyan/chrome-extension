@@ -1,8 +1,8 @@
 let holds = [];
 
 async function initHolds() {
-    if (!chrome.runtime || typeof chrome.runtime.sendMessage !== 'function') {
-        console.error('Chrome runtime is not available');
+    if (!window.chrome || !chrome.runtime || typeof chrome.runtime.sendMessage !== 'function') {
+        console.error('Chrome runtime is not available. Ensure this is running in a Chrome extension context.');
         return [];
     }
     return new Promise(resolve => {
@@ -20,7 +20,7 @@ $(document).ready(async () => {
     }
 
     const mouseoverDelay = 300;
-    const MAX_SAVED_TRANSLATIONS = 100; // Giới hạn số lượng bản dịch
+    const MAX_SAVED_TRANSLATIONS = 100;
     let asyncCounter = 0;
     let popup;
     let historyPopup;
@@ -66,6 +66,7 @@ $(document).ready(async () => {
                     <div class="button-group">
                         <button class="copy-btn">Copy</button>
                         <button class="save-btn">Save</button>
+                        <button class="mark-btn">Mark</button>
                         <button class="history-btn">History</button>
                     </div>
                 </div>
@@ -75,107 +76,119 @@ $(document).ready(async () => {
         `;
 
         const style = document.createElement('style');
-        style.textContent = `
-            .auto-translate-container {
-                min-width: 200px;
-                max-width: 400px;
-                border-radius: 5px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                font-family: Arial, sans-serif;
-            }
-            .auto-translate-container.black {
-                background: #333;
-                color: #fff;
-            }
-            .auto-translate-container.white {
-                background: #fff;
-                color: #333;
-                border: 1px solid #ddd;
-            }
-            .auto-translate-header {
-                padding: 5px 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-            .button-group {
-                display: flex;
-                gap: 5px;
-            }
-            .copy-btn, .save-btn, .history-btn {
-                padding: 2px 10px;
-                border: none;
-                border-radius: 3px;
-                cursor: pointer;
-                color: white;
-            }
-            .copy-btn {
-                background: #2196F3;
-            }
-            .copy-btn:hover {
-                background: #1976D2;
-            }
-            .save-btn {
-                background: #4CAF50;
-            }
-            .save-btn:hover {
-                background: #45a049;
-            }
-            .history-btn {
-                background: #9C27B0;
-            }
-            .history-btn:hover {
-                background: #7B1FA2;
-            }
-            .auto-translate-translation {
-                padding: 10px;
-                word-wrap: break-word;
-            }
-            .additional {
-                padding: 0 10px 10px;
-            }
-            .auto-translate-history-div {
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                padding: 10px;
-            }
-            .history-item {
-                border-bottom: 1px solid #eee;
-                padding: 5px 0;
-                position: relative;
-            }
-            .history-item:last-child {
-                border-bottom: none;
-            }
-            .delete-btn {
-                position: absolute;
-                right: 5px;
-                top: 5px;
-                background: #f44336;
-                color: white;
-                border: none;
-                border-radius: 3px;
-                padding: 2px 5px;
-                cursor: pointer;
-            }
-            .delete-btn:hover {
-                background: #d32f2f;
-            }
-        `;
-        popup.appendChild(style);
+        try {
+            style.textContent = `
+                .auto-translate-container {
+                    min-width: 200px;
+                    max-width: 400px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    font-family: Arial, sans-serif;
+                }
+                .auto-translate-container.black {
+                    background: #333;
+                    color: #fff;
+                }
+                .auto-translate-container.white {
+                    background: #fff;
+                    color: #333;
+                    border: 1px solid #ddd;
+                }
+                .auto-translate-header {
+                    padding: 5px 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid rgba(255,255,255,0.1);
+                }
+                .button-group {
+                    display: flex;
+                    gap: 5px;
+                }
+                .copy-btn, .save-btn, .mark-btn, .history-btn {
+                    padding: 2px 10px;
+                    border: none;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    color: white;
+                }
+                .copy-btn {
+                    background: #2196F3;
+                }
+                .copy-btn:hover {
+                    background: #1976D2;
+                }
+                .save-btn {
+                    background: #4CAF50;
+                }
+                .save-btn:hover {
+                    background: #45a049;
+                }
+                .mark-btn {
+                    background: #FFC107;
+                    color: #000;
+                }
+                .mark-btn:hover {
+                    background: #FFB300;
+                }
+                .history-btn {
+                    background: #9C27B0;
+                }
+                .history-btn:hover {
+                    background: #7B1FA2;
+                }
+                .auto-translate-translation {
+                    padding: 10px;
+                    word-wrap: break-word;
+                }
+                .additional {
+                    padding: 0 10px 10px;
+                }
+                .auto-translate-history-div {
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    padding: 10px;
+                }
+                .history-item {
+                    border-bottom: 1px solid #eee;
+                    padding: 5px 0;
+                    position: relative;
+                }
+                .history-item:last-child {
+                    border-bottom: none;
+                }
+                .delete-btn {
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    background: #f44336;
+                    color: white;
+                    border: none;
+                    border-radius: 3px;
+                    padding: 2px 5px;
+                    cursor: pointer;
+                }
+                .delete-btn:hover {
+                    background: #d32f2f;
+                }
+            `;
+            popup.appendChild(style);
+        } catch (error) {
+            console.error('Failed to apply CSS:', error);
+        }
 
         const langEl = popup.querySelector(".lang");
         const transEl = popup.querySelector(".translation");
         const addEl = popup.querySelector(".additional");
         const copyBtn = popup.querySelector(".copy-btn");
         const saveBtn = popup.querySelector(".save-btn");
+        const markBtn = popup.querySelector(".mark-btn");
         const historyBtn = popup.querySelector(".history-btn");
 
-        if (!langEl || !transEl || !addEl || !copyBtn || !saveBtn || !historyBtn) {
-            console.error('Failed to find popup elements');
+        if (!langEl || !transEl || !addEl || !copyBtn || !saveBtn || !markBtn || !historyBtn) {
+            console.error('Failed to find popup elements:', { langEl, transEl, addEl, copyBtn, saveBtn, markBtn, historyBtn });
             return;
         }
 
@@ -195,9 +208,7 @@ $(document).ready(async () => {
         copyBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(context.translation).then(() => {
                 copyBtn.textContent = 'Copied!';
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy';
-                }, 2000);
+                setTimeout(() => copyBtn.textContent = 'Copy', 2000);
             });
         });
 
@@ -214,7 +225,7 @@ $(document).ready(async () => {
             chrome.storage.local.get(['savedTranslations'], (result) => {
                 let savedTranslations = result.savedTranslations || [];
                 if (savedTranslations.length >= MAX_SAVED_TRANSLATIONS) {
-                    savedTranslations.shift(); // Xóa bản cũ nhất nếu vượt giới hạn
+                    savedTranslations.shift();
                 }
                 savedTranslations.push(translationData);
 
@@ -223,11 +234,10 @@ $(document).ready(async () => {
                     saveBtn.style.background = '#666';
                     saveBtn.disabled = true;
 
-                    // Thông báo Chrome
                     if (chrome.notifications) {
                         chrome.notifications.create({
                             type: 'basic',
-                            iconUrl: 'assets/icons/48.png', // Cần thêm icon vào project
+                            iconUrl: 'icon.png',
                             title: 'Translation Saved',
                             message: 'Your translation has been saved successfully!'
                         });
@@ -240,6 +250,30 @@ $(document).ready(async () => {
                     }, 2000);
                 });
             });
+        });
+
+        // Nút Mark
+        markBtn.addEventListener('click', () => {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                const span = document.createElement('span');
+                span.style.backgroundColor = 'yellow';
+                span.className = 'auto-translate-marked';
+                try {
+                    range.surroundContents(span);
+                    markBtn.textContent = 'Marked!';
+                    markBtn.disabled = true;
+                    setTimeout(() => {
+                        markBtn.textContent = 'Mark';
+                        markBtn.disabled = false;
+                    }, 2000);
+                } catch (error) {
+                    console.error('Failed to mark selection:', error);
+                    markBtn.textContent = 'Error';
+                    setTimeout(() => markBtn.textContent = 'Mark', 2000);
+                }
+            }
         });
 
         // Nút History
@@ -263,7 +297,6 @@ $(document).ready(async () => {
 
                 if (!historyPopup.parentNode) document.body.appendChild(historyPopup);
 
-                // Xử lý xóa
                 historyPopup.querySelectorAll('.delete-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const index = parseInt(btn.dataset.index);
@@ -297,40 +330,6 @@ $(document).ready(async () => {
         });
     } else {
         console.error('Chrome runtime is not available for message listener');
-    }
-
-    const keys = ["Ctrl", "Alt", "Shift", "Meta"];
-
-    function invoke(e, type) {
-        const hotkeys = keys.filter(k => e[`${k.toLowerCase()}Key`]).join("+");
-        const selectionKey = `${hotkeys}+Selection`;
-        const mouseoverKey = `${hotkeys}+Mouseover`;
-        let text = "";
-        let rect = { x: 0, y: 0, w: 0, h: 0 };
-
-        if (holds.includes(selectionKey) && type === "mouseup") {
-            const selection = window.getSelection();
-            if (selection?.rangeCount > 0) {
-                text = selection.toString();
-                const bcr = selection.getRangeAt(0).getBoundingClientRect();
-                rect = {
-                    x: bcr.left + window.scrollX,
-                    y: bcr.top + window.scrollY,
-                    w: bcr.width,
-                    h: bcr.height,
-                };
-                sendTranslateRequest(text, selectionKey, rect);
-            }
-        }
-
-        if (holds.includes(mouseoverKey) && type === "mouseover") {
-            const data = getWordAtPoint(e.target, e.x, e.y);
-            if (data) {
-                text = data.text;
-                rect = data.rect;
-                sendTranslateRequest(text, mouseoverKey, rect);
-            }
-        }
     }
 
     function sendTranslateRequest(text, hotkeys, rect) {
@@ -380,6 +379,38 @@ $(document).ready(async () => {
             historyPopup.parentNode.removeChild(historyPopup);
         }
     });
+
+    function invoke(e, type) {
+        const hotkeys = ["Ctrl", "Alt", "Shift", "Meta"].filter(k => e[`${k.toLowerCase()}Key`]).join("+");
+        const selectionKey = `${hotkeys}+Selection`;
+        const mouseoverKey = `${hotkeys}+Mouseover`;
+        let text = "";
+        let rect = { x: 0, y: 0, w: 0, h: 0 };
+
+        if (holds.includes(selectionKey) && type === "mouseup") {
+            const selection = window.getSelection();
+            if (selection?.rangeCount > 0) {
+                text = selection.toString();
+                const bcr = selection.getRangeAt(0).getBoundingClientRect();
+                rect = {
+                    x: bcr.left + window.scrollX,
+                    y: bcr.top + window.scrollY,
+                    w: bcr.width,
+                    h: bcr.height,
+                };
+                sendTranslateRequest(text, selectionKey, rect);
+            }
+        }
+
+        if (holds.includes(mouseoverKey) && type === "mouseover") {
+            const data = getWordAtPoint(e.target, e.x, e.y);
+            if (data) {
+                text = data.text;
+                rect = data.rect;
+                sendTranslateRequest(text, mouseoverKey, rect);
+            }
+        }
+    }
 
     function getWordAtPoint(elem, x, y) {
         if (elem.nodeType === Node.TEXT_NODE) {
