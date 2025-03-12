@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Create Project Structure",
+      "type": "shell",
+      "command": "python",
+      "args": ["${workspaceFolder}/.tools/project_analyzer.py", "${file}"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
